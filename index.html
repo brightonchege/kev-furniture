@@ -41,11 +41,7 @@
       box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
     }
     .cart-page {
-      display: none;
       animation: fadeIn 0.5s ease-in-out;
-    }
-    .cart-page.active {
-      display: block;
     }
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -64,19 +60,16 @@
       <div class="text-3xl font-bold text-gray-800">
         <a href="#" class="hover:text-blue-600 transition-colors">Furniture Haven</a>
       </div>
-      <!-- Hamburger Menu -->
       <button class="hamburger md:hidden text-gray-600 focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
       </button>
-      <!-- Navigation -->
       <nav class="nav-menu md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none p-4 md:p-0">
         <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Home</a>
         <a href="#products" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Shop</a>
         <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">About</a>
         <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
-        <!-- Search Bar -->
         <div class="relative w-full md:w-64">
           <input type="text" id="searchInput" class="search-bar w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search furniture...">
           <svg class="absolute right-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +88,7 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-50 to-gray-100 py-20">
       <div class="container mx-auto px-4 text-center">
-        <h1 class="text-5xl font-bold text-gray-800 mb-4 animate__animated animate__fadeIn">Discover Premium Furniture</h1>
+        <h1 class="text-5xl font-bold text-gray-800 mb-4">Discover Premium Furniture</h1>
         <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Transform your home with our stylish and affordable furniture collections, crafted for comfort and elegance.</p>
         <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
       </div>
@@ -105,10 +98,8 @@
     <section id="products" class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Furniture Collections</h2>
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          <!-- Product Cards will be dynamically generated here -->
-        </div>
-        <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found. This product is out of stock.</div>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
+        <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found.</div>
       </div>
     </section>
 
@@ -134,23 +125,24 @@
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.5-10 10 0 5 3.66 9.13 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.24c-1.2 0-1.6.8-1.6 1.6v2.7h2.8l-.45 2.9h-2.35v7c4.78-.77 8.44-4.9 8.44-9.9 0-5.5-4.5-10-10-10z"/></svg>
           </a>
           <a href="https://instagram.com" class="text-gray-600 hover:text-blue-600 transition-colors">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.24 2.22.4.56.22.97.48 1.4.9.42.42.68.83.9 1.4.16.42.34 1.05.4 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.24 1.8-.4 2.22-.22.56-.48.97-.9 1.4-.42.42-.83.68-1.4.9-.42.16-1.05.34-2.22.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07cacartItems.length === 0 ? 'block' : 'none'}>Your cart is empty.</p>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.24 2.22.4.56.22.97.48 1.4.9.42.42.68.83.9 1.4.16.42.34 1.05.4 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.24 1.8-.4 2.22-.22.56-.48.97-.9 1.4-.42.42-.83.68-1.4.9-.42.16-1.05.34-2.22.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.06-1.8-.24-2.22-.4-.56-.22-.97-.48-1.4-.9-.42-.42-.68-.83-.9-1.4-.16-.42-.34-1.05-.4-2.22-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.06-1.17.24-1.8.4-2.22.22-.56.48-.97.9-1.4.42-.42.83-.68 1.4-.9.42-.16 1.05-.34 2.22-.4 1.27-.06 1.65-.07 4.85-.07m0-2.16C8.74 0 8.33.01 7.05.07c-1.3.06-2.18.27-2.96.58-.8.32-1.48.78-2.16 1.46-.68.68-1.14 1.36-1.46 2.16-.31.78-.52 1.66-.58 2.96C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.3.27 2.18.58 2.96.32.8.78 1.48 1.46 2.16.68.68 1.36 1.14 2.16 1.46.78.31 1.66.52 2.96.58 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.3-.06 2.18-.27 2.96-.58.8-.32 1.48-.78 2.16-1.46.68-.68 1.14-1.36 1.46-2.16.31-.78.52-1.66.58-2.96.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.3-.27-2.18-.58-2.96-.32-.8-.78-1.48-1.46-2.16-.68-.68-1.36-1.14-2.16-1.46-.78-.31-1.66-.52-2.96-.58C15.67.01 15.26 0 12 0z"/></svg>
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- Cart Page -->
-  <section id="cartPage" class="cart-page py-20 bg-gray-50">
+  <section id="cartPage" class="cart-page py-20 bg-gray-50 hidden">
     <div class="container mx-auto px-4">
       <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Your Cart</h2>
-      <div id="cartItems" class="space-y-6">
-        <!-- Cart items will be dynamically generated here -->
-      </div>
-      <p id="emptyCartMessage" class="text-center text-gray-600 mt-8" style="display: none;">Your cart is empty.</p>
+      <div id="cartItems" class="space-y-6"></div>
+      <p id="emptyCartMessage" class="text-center text-gray-600 mt-8 hidden">Your cart is empty.</p>
       <div class="mt-12 flex justify-between items-center">
         <h3 id="cartTotal" class="text-2xl font-semibold text-gray-800">Total: KSh 0</h3>
-        <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Proceed to Checkout</button>
+        <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold hidden">Proceed to Checkout</button>
       </div>
+      <button id="backToShop" class="mt-6 bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 transition-colors text-lg font-semibold">Continue Shopping</button>
     </div>
   </section>
 
@@ -163,13 +155,13 @@
   </footer>
 
   <script>
-    // Furniture data without options
+    // Simplified furniture data without duplicates
     const furnitureData = [
-      { name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Sofa", inStock: true },
-      { name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true },
-      { name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Bed", inStock: true },
-      { name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true },
-      { name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true }
+      { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Sofa", inStock: true },
+      { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true },
+      { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Bed", inStock: true },
+      { id: 4, name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true },
+      { id: 5, name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true }
     ];
 
     // Cart functionality
@@ -183,6 +175,7 @@
     const cartTotal = document.getElementById('cartTotal');
     const emptyCartMessage = document.getElementById('emptyCartMessage');
     const checkoutButton = document.getElementById('checkoutButton');
+    const backToShop = document.getElementById('backToShop');
 
     // Update cart button count
     function updateCartButton() {
@@ -214,29 +207,12 @@
             <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
             <p class="text-gray-600 mt-2">${product.description}</p>
             <p class="text-blue-600 font-bold mt-3">KSh ${product.price.toLocaleString()}</p>
-            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
+            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
               ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
             </button>
           </div>
         `;
         productGrid.appendChild(productCard);
-      });
-
-      // Add event listeners to Add to Cart buttons
-      document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', () => {
-          const name = button.getAttribute('data-name');
-          const price = parseInt(button.getAttribute('data-price'));
-          const image = button.getAttribute('data-image');
-          const existingItem = cart.find(item => item.name === name);
-          if (existingItem) {
-            existingItem.quantity += 1;
-          } else {
-            cart.push({ name, price, image, quantity: 1 });
-          }
-          saveCart();
-          alert('Item added to cart!');
-        });
       });
     }
 
@@ -244,13 +220,13 @@
     function renderCart() {
       cartItemsContainer.innerHTML = '';
       if (cart.length === 0) {
-        emptyCartMessage.style.display = 'block';
+        emptyCartMessage.classList.remove('hidden');
         cartTotal.textContent = 'Total: KSh 0';
-        checkoutButton.style.display = 'none';
+        checkoutButton.classList.add('hidden');
         return;
       }
-      emptyCartMessage.style.display = 'none';
-      checkoutButton.style.display = 'block';
+      emptyCartMessage.classList.add('hidden');
+      checkoutButton.classList.remove('hidden');
       cart.forEach((item, index) => {
         const cartItem = document.createElement('div');
         cartItem.className = 'flex items-center bg-white p-4 rounded-lg shadow-md';
@@ -272,38 +248,59 @@
       // Update total
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
-
-      // Add event listeners for quantity changes and remove buttons
-      document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', (e) => {
-          const index = parseInt(e.target.id.split('-')[1]);
-          const newQuantity = parseInt(e.target.value);
-          if (newQuantity >= 1) {
-            cart[index].quantity = newQuantity;
-            saveCart();
-          }
-        });
-      });
-
-      document.querySelectorAll('.remove-item').forEach(button => {
-        button.addEventListener('click', () => {
-          const index = parseInt(button.getAttribute('data-index'));
-          cart.splice(index, 1);
-          saveCart();
-        });
-      });
     }
 
-    // Toggle cart page
-    cartButton.addEventListener('click', () => {
-      mainContent.style.display = mainContent.style.display === 'none' ? 'block' : 'none';
-      cartPage.classList.toggle('active');
-      renderCart();
+    // Event delegation for cart actions
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('add-to-cart')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const name = e.target.getAttribute('data-name');
+        const price = parseInt(e.target.getAttribute('data-price'));
+        const image = e.target.getAttribute('data-image');
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ id, name, price, image, quantity: 1 });
+        }
+        saveCart();
+        alert('Item added to cart!');
+      }
+
+      if (e.target.classList.contains('remove-item')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        cart.splice(index, 1);
+        saveCart();
+      }
+
+      if (e.target.id === 'cartButton') {
+        mainContent.classList.toggle('hidden');
+        cartPage.classList.toggle('hidden');
+        renderCart();
+      }
+
+      if (e.target.id === 'backToShop') {
+        mainContent.classList.remove('hidden');
+        cartPage.classList.add('hidden');
+      }
+
+      if (e.target.id === 'checkoutButton') {
+        alert('Proceeding to checkout. This is a placeholder for payment integration.');
+      }
     });
 
-    // Checkout button (placeholder)
-    checkoutButton.addEventListener('click', () => {
-      alert('Proceeding to checkout. This is a placeholder for payment integration.');
+    // Quantity input change
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('quantity-input')) {
+        const index = parseInt(e.target.id.split('-')[1]);
+        const newQuantity = parseInt(e.target.value);
+        if (newQuantity >= 1) {
+          cart[index].quantity = newQuantity;
+          saveCart();
+        } else {
+          e.target.value = cart[index].quantity; // Revert to previous value
+        }
+      }
     });
 
     // Search functionality
