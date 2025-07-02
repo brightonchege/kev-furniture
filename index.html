@@ -51,6 +51,12 @@
       width: 80px;
       text-align: center;
     }
+    .checkout-form input {
+      transition: all 0.3s ease;
+    }
+    .checkout-form input:focus {
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
   </style>
 </head>
 <body class="bg-gray-50">
@@ -142,6 +148,21 @@
         <h3 id="cartTotal" class="text-2xl font-semibold text-gray-800">Total: KSh 0</h3>
         <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold hidden">Proceed to Checkout</button>
       </div>
+      <!-- Checkout Form -->
+      <div id="checkoutForm" class="checkout-form mt-8 hidden max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Enter Your Details</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="customerName" class="block text-gray-600">Full Name</label>
+            <input type="text" id="customerName" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" required>
+          </div>
+          <div>
+            <label for="customerPhone" class="block text-gray-600">Phone Number</label>
+            <input type="tel" id="customerPhone" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., +254123456789" required>
+          </div>
+          <button id="submitCheckout" class="w-full bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">Confirm Order</button>
+        </div>
+      </div>
       <button id="backToShop" class="mt-6 bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 transition-colors text-lg font-semibold">Continue Shopping</button>
     </div>
   </section>
@@ -155,7 +176,7 @@
   </footer>
 
   <script>
-    // Simplified furniture data without duplicates
+    // Furniture data
     const furnitureData = [
       { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Sofa", inStock: true },
       { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true },
@@ -176,6 +197,8 @@
     const emptyCartMessage = document.getElementById('emptyCartMessage');
     const checkoutButton = document.getElementById('checkoutButton');
     const backToShop = document.getElementById('backToShop');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const submitCheckout = document.getElementById('submitCheckout');
 
     // Update cart button count
     function updateCartButton() {
@@ -219,6 +242,7 @@
     // Render cart
     function renderCart() {
       cartItemsContainer.innerHTML = '';
+      checkoutForm.classList.add('hidden');
       if (cart.length === 0) {
         emptyCartMessage.classList.remove('hidden');
         cartTotal.textContent = 'Total: KSh 0';
@@ -250,8 +274,36 @@
       cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
     }
 
+    // Simulate sending SMS (replace with real SMS API in production)
+    async function sendOrderSMS(customerName, customerPhone, orderDetails) {
+      const ownerPhone = '+254746811125'; // Owner's phone number
+      const message = `New Order from ${customerName} (${customerPhone}):\n${orderDetails}\nTotal: KSh ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()}`;
+      
+      // Placeholder for SMS API call (e.g., Africa's Talking or Twilio)
+      try {
+        // Simulated API call
+        console.log(`Sending SMS to ${ownerPhone}: ${message}`);
+        // Example using fetch (uncomment and configure with real API):
+        /*
+        await fetch('https://api.smsprovider.com/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: ownerPhone,
+            message: message,
+            apiKey: 'YOUR_API_KEY'
+          })
+        });
+        */
+        return true;
+      } catch (error) {
+        console.error('Error sending SMS:', error);
+        return false;
+      }
+    }
+
     // Event delegation for cart actions
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', async (e) => {
       if (e.target.classList.contains('add-to-cart')) {
         const id = parseInt(e.target.getAttribute('data-id'));
         const name = e.target.getAttribute('data-name');
@@ -285,7 +337,35 @@
       }
 
       if (e.target.id === 'checkoutButton') {
-        alert('Proceeding to checkout. This is a placeholder for payment integration.');
+        checkoutForm.classList.remove('hidden');
+        cartItemsContainer.classList.add('hidden');
+        checkoutButton.classList.add('hidden');
+      }
+
+      if (e.target.id === 'submitCheckout') {
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        if (!customerName || !customerPhone) {
+          alert('Please enter both your name and phone number.');
+          return;
+        }
+        if (!/^\+?\d{10,12}$/.test(customerPhone)) {
+          alert('Please enter a valid phone number (e.g., +254123456789).');
+          return;
+        }
+        const orderDetails = cart.map(item => `${item.name} (Qty: ${item.quantity}, Price: KSh ${item.price.toLocaleString()})`).join('\n');
+        const success = await sendOrderSMS(customerName, customerPhone, orderDetails);
+        if (success) {
+          alert('Order placed successfully! The store owner has been notified.');
+          cart = [];
+          saveCart();
+          checkoutForm.classList.add('hidden');
+          cartItemsContainer.classList.remove('hidden');
+          mainContent.classList.remove('hidden');
+          cartPage.classList.add('hidden');
+        } else {
+          alert('Failed to send order. Please try again or contact support.');
+        }
       }
     });
 
