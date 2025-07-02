@@ -5,118 +5,291 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Furniture Haven Kenya</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .hamburger {
+      display: none;
+    }
+    .nav-menu {
+      transition: all 0.3s ease-in-out;
+    }
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      .nav-menu {
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+    }
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    .search-bar {
+      transition: all 0.3s ease;
+    }
+    .search-bar:focus {
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+  </style>
 </head>
-<body class="font-sans">
+<body class="bg-gray-50">
   <!-- Header -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
+  <header class="bg-white shadow-lg sticky top-0 z-50">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold text-gray-800">
-        <a href="#">Furniture Haven</a>
+      <div class="text-3xl font-bold text-gray-800">
+        <a href="#" class="hover:text-blue-600 transition-colors">Furniture Haven</a>
       </div>
-      <nav class="space-x-6">
-        <a href="#" class="text-gray-600 hover:text-blue-600">Home</a>
-        <a href="#products" class="text-gray-600 hover:text-blue-600">Shop</a>
-        <a href="#about" class="text-gray-600 hover:text-blue-600">About</a>
-        <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+      <!-- Hamburger Menu -->
+      <button class="hamburger md:hidden text-gray-600 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+      <!-- Navigation -->
+      <nav class="nav-menu md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none p-4 md:p-0">
+        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Home</a>
+        <a href="#products" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Shop</a>
+        <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">About</a>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
+        <!-- Search Bar -->
+        <div class="relative w-full md:w-64">
+          <input type="text" id="searchInput" class="search-bar w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search furniture...">
+          <svg class="absolute right-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0a7 7 0 111.415-1.414L21 21z"></path>
+          </svg>
+        </div>
       </nav>
       <div>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Cart (0)</button>
+        <button id="cartButton" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">Cart (0)</button>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-gray-100 py-16">
+  <section class="bg-gradient-to-r from-blue-50 to-gray-100 py-20">
     <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl font-bold text-gray-800 mb-4">Discover Premium Furniture</h1>
-      <p class="text-lg text-gray-600 mb-6">Transform your home with our stylish and affordable furniture collections.</p>
-      <a href="#products" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Shop Now</a>
+      <h1 class="text-5xl font-bold text-gray-800 mb-4">Discover Premium Furniture</h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Transform your home with our stylish and affordable furniture collections, crafted for comfort and elegance.</p>
+      <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
     </div>
   </section>
 
   <!-- Product Section -->
-  <section id="products" class="py-16 bg-white">
+  <section id="products" class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Our Furniture Collections</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <!-- Product Card 1 -->
-        <div class="bg-gray-50 shadow-md rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x200?text=Sofa" alt="Modern Sofa" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Modern Sofa</h3>
-            <p class="text-gray-600">Comfortable and stylish sofa for your living room.</p>
-            <p class="text-blue-600 font-bold mt-2">KSh 45,000</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Product Card 2 -->
-        <div class="bg-gray-50 shadow-md rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x200?text=Dining+Table" alt="Dining Table" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Wooden Dining Table</h3>
-            <p class="text-gray-600">Elegant dining table for family gatherings.</p>
-            <p class="text-blue-600 font-bold mt-2">KSh 65,000</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Add to Cart</button>
-          </div>
-        </div>
-        <!-- Product Card 3 -->
-        <div class="bg-gray-50 shadow-md rounded-lg overflow-hidden">
-          <img src="https://via.placeholder.com/300x200?text=Bed" alt="Queen Bed" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold text-gray-800">Queen Bed Frame</h3>
-            <p class="text-gray-600">Sleek and sturdy bed frame for a cozy bedroom.</p>
-            <p class="text-blue-600 font-bold mt-2">KSh 55,000</p>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Add to Cart</button>
-          </div>
-        </div>
+      <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Furniture Collections</h2>
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Product Cards will be dynamically generated here -->
       </div>
+      <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found. This product is out of stock.</div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="py-16 bg-gray-100">
+  <section id="about" class="py-20 bg-gray-100">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">About Furniture Haven</h2>
-      <p class="text-gray-600 max-w-2xl mx-auto">Furniture Haven Kenya is your one-stop shop for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a wide range of products with a 24-month warranty. Contact us at 0746811125 for inquiries.</p>
+      <h2 class="text-4xl font-bold text-gray-800 mb-6">About Furniture Haven</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">Furniture Haven Kenya is your one-stop shop for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a wide range of products with a 24-month warranty. Contact us at 0746811125 for inquiries.</p>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-white">
+  <section id="contact" class="py-20 bg-white">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Get in Touch</h2>
-      <p class="text-gray-600 mb-6">Have questions? Reach out to us!</p>
-      <div class="flex justify-center space-x-4">
-        <a href="tel:+254746811125" class="text-blue-600 hover:underline">+254 746 811 125</a>
-        <a href="mailto:info@furniturehaven.co.ke" class="text-blue-600 hover:underline">info@furniturehaven.co.ke</a>
+      <h2 class="text-4xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+      <p class="text-lg text-gray-600 mb-8">Have questions? Reach out to us!</p>
+      <div class="flex justify-center space-x-6">
+        <a href="tel:+254746811125" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">+254 746 811 125</a>
+        <a href="mailto:info@furniturehaven.co.ke" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">info@furniturehaven.co.ke</a>
       </div>
-      <div class="mt-4">
-        <a href="https://facebook.com" class="text-gray-600 hover:text-blue-600 mx-2">Facebook</a>
-        <a href="https://instagram.com" class="text-gray-600 hover:text-blue-600 mx-2">Instagram</a>
+      <div class="mt-6 flex justify-center space-x-6">
+        <a href="https://facebook.com" class="text-gray-600 hover:text-blue-600 transition-colors">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.5-10 10 0 5 3.66 9.13 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.24c-1.2 0-1.6.8-1.6 1.6v2.7h2.8l-.45 2.9h-2.35v7c4.78-.77 8.44-4.9 8.44-9.9 0-5.5-4.5-10-10-10z"/></svg>
+        </a>
+        <a href="https://instagram.com" class="text-gray-600 hover:text-blue-600 transition-colors">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.24 2.22.4.56.22.97.48 1.4.9.42.42.68.83.9 1.4.16.42.34 1.05.4 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.24 1.8-.4 2.22-.22.56-.48.97-.9 1.4-.42.42-.83.68-1.4.9-.42.16-1.05.34-2.22.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.06-1.8-.24-2.22-.4-.56-.22-.97-.48-1.4-.9-.42-.42-.68-.83-.9-1.4-.16-.42-.34-1.05-.4-2.22-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.06-1.17.24-1.8.4-2.22.22-.56.48-.97.9-1.4.42-.42.83-.68 1.4-.9.42-.16 1.05-.34 2.22-.4 1.27-.06 1.65-.07 4.85-.07m0-2.16C8.74 0 8.33.01 7.05.07c-1.3.06-2.18.27-2.96.58-.8.32-1.48.78-2.16 1.46-.68.68-1.14 1.36-1.46 2.16-.31.78-.52 1.66-.58 2.96C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.3.27 2.18.58 2.96.32.8.78 1.48 1.46 2.16.68.68 1.36 1.14 2.16 1.46.78.31 1.66.52 2.96.58 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.3-.06 2.18-.27 2.96-.58.8-.32 1.48-.78 2.16-1.46.68-.68 1.14-1.36 1.46-2.16.31-.78.52-1.66.58-2.96.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.3-.27-2.18-.58-2.96-.32-.8-.78-1.48-1.46-2.16-.68-.68-1.36-1.14-2.16-1.46-.78-.31-1.66-.52-2.96-.58C15.67.01 15.26 0 12 0z"/></svg>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8">
+  <footer class="bg-gray-900 text-white py-10">
     <div class="container mx-auto px-4 text-center">
-      <p>&copy; 2025 Furniture Haven Kenya. All rights reserved.</p>
+      <p class="text-lg">© 2025 Furniture Haven Kenya. All rights reserved.</p>
       <p class="mt-2">Sasa Mall G7, Moi Avenue, Nairobi</p>
     </div>
   </footer>
 
   <script>
-    // Simple cart counter functionality
-    let cartCount = 0;
-    const cartButton = document.querySelector('header button');
-    const addToCartButtons = document.querySelectorAll('.bg-blue-600.w-full');
+    // Furniture data with options
+    const furnitureData = [
+      {
+        name: "Modern Sofa",
+        description: "Comfortable and stylish sofa for your living room.",
+        price: 45000,
+        image: "https://via.placeholder.com/300x200?text=Sofa",
+        options: [
+          { color: "Gray", size: "3-Seater", material: "Fabric", inStock: true },
+          { color: "Beige", size: "3-Seater", material: "Leather", inStock: true },
+          { color: "Navy Blue", size: "2-Seater", material: "Fabric", inStock: true },
+          { color: "Black", size: "2-Seater", material: "Leather", inStock: false },
+          { color: "White", size: "L-Shape", material: "Fabric", inStock: true },
+          { color: "Brown", size: "L-Shape", material: "Leather", inStock: true },
+          { color: "Green", size: "3-Seater", material: "Velvet", inStock: true },
+          { color: "Red", size: "2-Seater", material: "Velvet", inStock: false },
+          { color: "Charcoal", size: "3-Seater", material: "Fabric", inStock: true },
+          { color: "Cream", size: "L-Shape", material: "Leather", inStock: true }
+        ]
+      },
+      {
+        name: "Wooden Dining Table",
+        description: "Elegant dining table for family gatherings.",
+        price: 65000,
+        image: "https://via.placeholder.com/300x200?text=Dining+Table",
+        options: [
+          { wood: "Oak", size: "6-Seater", finish: "Matte", inStock: true },
+          { wood: "Walnut", size: "6-Seater", finish: "Glossy", inStock: true },
+          { wood: "Mahogany", size: "8-Seater", finish: "Matte", inStock: true },
+          { wood: "Pine", size: "4-Seater", finish: "Natural", inStock: false },
+          { wood: "Teak", size: "6-Seater", finish: "Matte", inStock: true },
+          { wood: "Oak", size: "8-Seater", finish: "Glossy", inStock: true },
+          { wood: "Walnut", size: "4-Seater", finish: "Matte", inStock: true },
+          { wood: "Mahogany", size: "6-Seater", finish: "Natural", inStock: false },
+          { wood: "Teak", size: "8-Seater", finish: "Glossy", inStock: true },
+          { wood: "Pine", size: "6-Seater", finish: "Matte", inStock: true }
+        ]
+      },
+      {
+        name: "Queen Bed Frame",
+        description: "Sleek and sturdy bed frame for a cozy bedroom.",
+        price: 55000,
+        image: "https://via.placeholder.com/300x200?text=Bed",
+        options: [
+          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
+          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
+          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
+          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
+          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
+          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
+          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
+          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
+          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
+          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
+        ]
+      },
+      {
+        name: "Coffee Table",
+        description: "Modern coffee table to complement your living space.",
+        price: 25000,
+        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
+        options: [
+          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
+          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
+          { material: "Metal", shape: "Square", color: "Black", inStock: true },
+          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
+          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
+          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
+          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
+          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
+          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
+          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
+        ]
+      },
+      {
+        name: "Bookshelf",
+        description: "Stylish bookshelf for your home office or living room.",
+        price: 35000,
+        image: "https://via.placeholder.com/300x200?text=Bookshelf",
+        options: [
+          { material: "Wood", shelves: "5", color: "Natural", inStock: true },
+          { material: "Metal", shelves: "4", color: "Black", inStock: true },
+          { material: "Wood", shelves: "3", color: "White", inStock: true },
+          { material: "Metal", shelves: "5", color: "Silver", inStock: false },
+          { material: "Wood", shelves: "4", color: "Dark Brown", inStock: true },
+          { material: "Metal", shelves: "3", color: "White", inStock: true },
+          { material: "Wood", shelves: "5", color: "Gray", inStock: true },
+          { material: "Metal", shelves: "4", color: "Gold", inStock: false },
+          { material: "Wood", shelves: "3", color: "Oak", inStock: true },
+          { material: "Metal", shelves: "5", color: "Black", inStock: true }
+        ]
+      }
+    ];
 
-    addToCartButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        cartCount++;
-        cartButton.textContent = `Cart (${cartCount})`;
-        alert('Item added to cart!');
+    // Cart functionality
+    let cartCount = 0;
+    const cartButton = document.getElementById('cartButton');
+    const productGrid = document.getElementById('productGrid');
+    const noResults = document.getElementById('noResults');
+
+    // Function to render products
+    function renderProducts(products) {
+      productGrid.innerHTML = '';
+      if (products.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      }
+      noResults.classList.add('hidden');
+      products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card bg-gray-50 shadow-lg rounded-xl overflow-hidden';
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
+            <p class="text-gray-600 mt-2">${product.description}</p>
+            <p class="text-blue-600 font-bold mt-3">KSh ${product.price.toLocaleString()}</p>
+            <select class="mt-4 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              ${product.options.map(option => `
+                <option value="${JSON.stringify(option)}" ${!option.inStock ? 'disabled' : ''}>
+                  ${Object.values(option).slice(0, -1).join(' | ')} ${option.inStock ? '' : '(Out of Stock)'}
+                </option>
+              `).join('')}
+            </select>
+            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" ${product.options.every(opt => !opt.inStock) ? 'disabled' : ''}>
+              Add to Cart
+            </button>
+          </div>
+        `;
+        productGrid.appendChild(productCard);
       });
+
+      // Add event listeners to Add to Cart buttons
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+          cartCount++;
+          cartButton.textContent = `Cart (${cartCount})`;
+          alert('Item added to cart!');
+        });
+      });
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const filteredProducts = furnitureData.filter(product =>
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+      );
+      renderProducts(filteredProducts);
+    });
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
     });
 
     // Smooth scrolling for navigation links
@@ -126,8 +299,14 @@
         document.querySelector(this.getAttribute('href')).scrollIntoView({
           behavior: 'smooth'
         });
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
       });
     });
+
+    // Initial render
+    renderProducts(furnitureData);
   </script>
 </body>
 </html>
