@@ -32,13 +32,28 @@
     }
     .product-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
     .search-bar {
       transition: all 0.3s ease;
     }
     .search-bar:focus {
       box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+    .cart-page {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .cart-page.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .quantity-input {
+      width: 80px;
+      text-align: center;
     }
   </style>
 </head>
@@ -75,50 +90,66 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-blue-50 to-gray-100 py-20">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-5xl font-bold text-gray-800 mb-4">Discover Premium Furniture</h1>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Transform your home with our stylish and affordable furniture collections, crafted for comfort and elegance.</p>
-      <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
-    </div>
-  </section>
+  <!-- Main Content -->
+  <main id="mainContent">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-50 to-gray-100 py-20">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold text-gray-800 mb-4 animate__animated animate__fadeIn">Discover Premium Furniture</h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Transform your home with our stylish and affordable furniture collections, crafted for comfort and elegance.</p>
+        <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
+      </div>
+    </section>
 
-  <!-- Product Section -->
-  <section id="products" class="py-20 bg-white">
+    <!-- Product Section -->
+    <section id="products" class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Furniture Collections</h2>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          <!-- Product Cards will be dynamically generated here -->
+        </div>
+        <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found. This product is out of stock.</div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-100">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold text-gray-800 mb-6">About Furniture Haven</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Furniture Haven Kenya is your one-stop shop for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a wide range of products with a 24-month warranty. Contact us at 0746811125 for inquiries.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold text-gray-800 mb-6">Get in Touch</h2>
+        <p class="text-lg text-gray-600 mb-8">Have questions? Reach out to us!</p>
+        <div class="flex justify-center space-x-6">
+          <a href="tel:+254746811125" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">+254 746 811 125</a>
+          <a href="mailto:info@furniturehaven.co.ke" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">info@furniturehaven.co.ke</a>
+        </div>
+        <div class="mt-6 flex justify-center space-x-6">
+          <a href="https://facebook.com" class="text-gray-600 hover:text-blue-600 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.5-10 10 0 5 3.66 9.13 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.24c-1.2 0-1.6.8-1.6 1.6v2.7h2.8l-.45 2.9h-2.35v7c4.78-.77 8.44-4.9 8.44-9.9 0-5.5-4.5-10-10-10z"/></svg>
+          </a>
+          <a href="https://instagram.com" class="text-gray-600 hover:text-blue-600 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.24 2.22.4.56.22.97.48 1.4.9.42.42.68.83.9 1.4.16.42.34 1.05.4 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.24 1.8-.4 2.22-.22.56-.48.97-.9 1.4-.42.42-.83.68-1.4.9-.42.16-1.05.34-2.22.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07cacartItems.length === 0 ? 'block' : 'none'}>Your cart is empty.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Page -->
+  <section id="cartPage" class="cart-page py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Furniture Collections</h2>
-      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <!-- Product Cards will be dynamically generated here -->
+      <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Your Cart</h2>
+      <div id="cartItems" class="space-y-6">
+        <!-- Cart items will be dynamically generated here -->
       </div>
-      <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found. This product is out of stock.</div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-gray-100">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-4xl font-bold text-gray-800 mb-6">About Furniture Haven</h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">Furniture Haven Kenya is your one-stop shop for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a wide range of products with a 24-month warranty. Contact us at 0746811125 for inquiries.</p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-white">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-4xl font-bold text-gray-800 mb-6">Get in Touch</h2>
-      <p class="text-lg text-gray-600 mb-8">Have questions? Reach out to us!</p>
-      <div class="flex justify-center space-x-6">
-        <a href="tel:+254746811125" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">+254 746 811 125</a>
-        <a href="mailto:info@furniturehaven.co.ke" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">info@furniturehaven.co.ke</a>
-      </div>
-      <div class="mt-6 flex justify-center space-x-6">
-        <a href="https://facebook.com" class="text-gray-600 hover:text-blue-600 transition-colors">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-10 4.5-10 10 0 5 3.66 9.13 8.44 9.9v-7h-2.54v-2.9h2.54v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.24c-1.2 0-1.6.8-1.6 1.6v2.7h2.8l-.45 2.9h-2.35v7c4.78-.77 8.44-4.9 8.44-9.9 0-5.5-4.5-10-10-10z"/></svg>
-        </a>
-        <a href="https://instagram.com" class="text-gray-600 hover:text-blue-600 transition-colors">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.06 1.8.24 2.22.4.56.22.97.48 1.4.9.42.42.68.83.9 1.4.16.42.34 1.05.4 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.06 1.17-.24 1.8-.4 2.22-.22.56-.48.97-.9 1.4-.42.42-.83.68-1.4.9-.42.16-1.05.34-2.22.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.06-1.8-.24-2.22-.4-.56-.22-.97-.48-1.4-.9-.42-.42-.68-.83-.9-1.4-.16-.42-.34-1.05-.4-2.22-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.06-1.17.24-1.8.4-2.22.22-.56.48-.97.9-1.4.42-.42.83-.68 1.4-.9.42-.16 1.05-.34 2.22-.4 1.27-.06 1.65-.07 4.85-.07m0-2.16C8.74 0 8.33.01 7.05.07c-1.3.06-2.18.27-2.96.58-.8.32-1.48.78-2.16 1.46-.68.68-1.14 1.36-1.46 2.16-.31.78-.52 1.66-.58 2.96C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.3.27 2.18.58 2.96.32.8.78 1.48 1.46 2.16.68.68 1.36 1.14 2.16 1.46.78.31 1.66.52 2.96.58 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c1.3-.06 2.18-.27 2.96-.58.8-.32 1.48-.78 2.16-1.46.68-.68 1.14-1.36 1.46-2.16.31-.78.52-1.66.58-2.96.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.3-.27-2.18-.58-2.96-.32-.8-.78-1.48-1.46-2.16-.68-.68-1.36-1.14-2.16-1.46-.78-.31-1.66-.52-2.96-.58C15.67.01 15.26 0 12 0z"/></svg>
-        </a>
+      <p id="emptyCartMessage" class="text-center text-gray-600 mt-8" style="display: none;">Your cart is empty.</p>
+      <div class="mt-12 flex justify-between items-center">
+        <h3 id="cartTotal" class="text-2xl font-semibold text-gray-800">Total: KSh 0</h3>
+        <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Proceed to Checkout</button>
       </div>
     </div>
   </section>
@@ -132,359 +163,41 @@
   </footer>
 
   <script>
-    // Furniture data with options
+    // Furniture data without options
     const furnitureData = [
-      {
-        name: "Modern Sofa",
-        description: "Comfortable and stylish sofa for your living room.",
-        price: 45000,
-        image: "https://via.placeholder.com/300x200?text=Sofa",
-        options: [
-          { color: "Gray", size: "3-Seater", material: "Fabric", inStock: true },
-          { color: "Beige", size: "3-Seater", material: "Leather", inStock: true },
-          { color: "Navy Blue", size: "2-Seater", material: "Fabric", inStock: true },
-          { color: "Black", size: "2-Seater", material: "Leather", inStock: false },
-          { color: "White", size: "L-Shape", material: "Fabric", inStock: true },
-          { color: "Brown", size: "L-Shape", material: "Leather", inStock: true },
-          { color: "Green", size: "3-Seater", material: "Velvet", inStock: true },
-          { color: "Red", size: "2-Seater", material: "Velvet", inStock: false },
-          { color: "Charcoal", size: "3-Seater", material: "Fabric", inStock: true },
-          { color: "Cream", size: "L-Shape", material: "Leather", inStock: true }
-        ]
-      },
-      {
-        name: "Wooden Dining Table",
-        description: "Elegant dining table for family gatherings.",
-        price: 65000,
-        image: "https://via.placeholder.com/300x200?text=Dining+Table",
-        options: [
-          { wood: "Oak", size: "6-Seater", finish: "Matte", inStock: true },
-          { wood: "Walnut", size: "6-Seater", finish: "Glossy", inStock: true },
-          { wood: "Mahogany", size: "8-Seater", finish: "Matte", inStock: true },
-          { wood: "Pine", size: "4-Seater", finish: "Natural", inStock: false },
-          { wood: "Teak", size: "6-Seater", finish: "Matte", inStock: true },
-          { wood: "Oak", size: "8-Seater", finish: "Glossy", inStock: true },
-          { wood: "Walnut", size: "4-Seater", finish: "Matte", inStock: true },
-          { wood: "Mahogany", size: "6-Seater", finish: "Natural", inStock: false },
-          { wood: "Teak", size: "8-Seater", finish: "Glossy", inStock: true },
-          { wood: "Pine", size: "6-Seater", finish: "Matte", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-            {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-      {
-        name: "Queen Bed Frame",
-        description: "Sleek and sturdy bed frame for a cozy bedroom.",
-        price: 55000,
-        image: "https://via.placeholder.com/300x200?text=Bed",
-        options: [
-          { material: "Wood", color: "Natural", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Black", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "White", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "Silver", headboard: "Slatted", inStock: false },
-          { material: "Wood", color: "Dark Brown", headboard: "Panel", inStock: true },
-          { material: "Wood", color: "Gray", headboard: "Upholstered", inStock: true },
-          { material: "Metal", color: "White", headboard: "Slatted", inStock: true },
-          { material: "Wood", color: "Black", headboard: "Panel", inStock: false },
-          { material: "Metal", color: "Gold", headboard: "Upholstered", inStock: true },
-          { material: "Wood", color: "Natural", headboard: "Panel", inStock: true }
-        ]
-      },
-      {
-        name: "Coffee Table",
-        description: "Modern coffee table to complement your living space.",
-        price: 25000,
-        image: "https://via.placeholder.com/300x200?text=Coffee+Table",
-        options: [
-          { material: "Glass", shape: "Round", color: "Clear", inStock: true },
-          { material: "Wood", shape: "Rectangular", color: "Oak", inStock: true },
-          { material: "Metal", shape: "Square", color: "Black", inStock: true },
-          { material: "Glass", shape: "Oval", color: "Smoked", inStock: false },
-          { material: "Wood", shape: "Round", color: "Walnut", inStock: true },
-          { material: "Metal", shape: "Rectangular", color: "Silver", inStock: true },
-          { material: "Wood", shape: "Square", color: "Natural", inStock: true },
-          { material: "Glass", shape: "Round", color: "Tinted", inStock: false },
-          { material: "Wood", shape: "Oval", color: "Mahogany", inStock: true },
-          { material: "Metal", shape: "Round", color: "Gold", inStock: true }
-        ]
-      },
-      {
-        name: "Bookshelf",
-        description: "Stylish bookshelf for your home office or living room.",
-        price: 35000,
-        image: "https://via.placeholder.com/300x200?text=Bookshelf",
-        options: [
-          { material: "Wood", shelves: "5", color: "Natural", inStock: true },
-          { material: "Metal", shelves: "4", color: "Black", inStock: true },
-          { material: "Wood", shelves: "3", color: "White", inStock: true },
-          { material: "Metal", shelves: "5", color: "Silver", inStock: false },
-          { material: "Wood", shelves: "4", color: "Dark Brown", inStock: true },
-          { material: "Metal", shelves: "3", color: "White", inStock: true },
-          { material: "Wood", shelves: "5", color: "Gray", inStock: true },
-          { material: "Metal", shelves: "4", color: "Gold", inStock: false },
-          { material: "Wood", shelves: "3", color: "Oak", inStock: true },
-          { material: "Metal", shelves: "5", color: "Black", inStock: true }
-        ]
-      }
+      { name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Sofa", inStock: true },
+      { name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true },
+      { name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Bed", inStock: true },
+      { name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true },
+      { name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true }
     ];
 
     // Cart functionality
-    let cartCount = 0;
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartButton = document.getElementById('cartButton');
     const productGrid = document.getElementById('productGrid');
     const noResults = document.getElementById('noResults');
+    const mainContent = document.getElementById('mainContent');
+    const cartPage = document.getElementById('cartPage');
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const emptyCartMessage = document.getElementById('emptyCartMessage');
+    const checkoutButton = document.getElementById('checkoutButton');
 
-    // Function to render products
+    // Update cart button count
+    function updateCartButton() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartButton.textContent = `Cart (${totalItems})`;
+    }
+
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartButton();
+      renderCart();
+    }
+
+    // Render products
     function renderProducts(products) {
       productGrid.innerHTML = '';
       if (products.length === 0) {
@@ -501,15 +214,8 @@
             <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
             <p class="text-gray-600 mt-2">${product.description}</p>
             <p class="text-blue-600 font-bold mt-3">KSh ${product.price.toLocaleString()}</p>
-            <select class="mt-4 w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              ${product.options.map(option => `
-                <option value="${JSON.stringify(option)}" ${!option.inStock ? 'disabled' : ''}>
-                  ${Object.values(option).slice(0, -1).join(' | ')} ${option.inStock ? '' : '(Out of Stock)'}
-                </option>
-              `).join('')}
-            </select>
-            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" ${product.options.every(opt => !opt.inStock) ? 'disabled' : ''}>
-              Add to Cart
+            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
+              ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
             </button>
           </div>
         `;
@@ -519,12 +225,86 @@
       // Add event listeners to Add to Cart buttons
       document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
-          cartCount++;
-          cartButton.textContent = `Cart (${cartCount})`;
+          const name = button.getAttribute('data-name');
+          const price = parseInt(button.getAttribute('data-price'));
+          const image = button.getAttribute('data-image');
+          const existingItem = cart.find(item => item.name === name);
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cart.push({ name, price, image, quantity: 1 });
+          }
+          saveCart();
           alert('Item added to cart!');
         });
       });
     }
+
+    // Render cart
+    function renderCart() {
+      cartItemsContainer.innerHTML = '';
+      if (cart.length === 0) {
+        emptyCartMessage.style.display = 'block';
+        cartTotal.textContent = 'Total: KSh 0';
+        checkoutButton.style.display = 'none';
+        return;
+      }
+      emptyCartMessage.style.display = 'none';
+      checkoutButton.style.display = 'block';
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'flex items-center bg-white p-4 rounded-lg shadow-md';
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+          <div class="flex-1 ml-4">
+            <h3 class="text-lg font-semibold text-gray-800">${item.name}</h3>
+            <p class="text-gray-600">KSh ${item.price.toLocaleString()}</p>
+            <div class="flex items-center mt-2">
+              <label for="quantity-${index}" class="mr-2">Quantity:</label>
+              <input type="number" id="quantity-${index}" class="quantity-input border border-gray-300 rounded-lg p-1" value="${item.quantity}" min="1">
+            </div>
+          </div>
+          <button class="remove-item text-red-600 hover:text-red-800 font-medium" data-index="${index}">Remove</button>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+      });
+
+      // Update total
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
+
+      // Add event listeners for quantity changes and remove buttons
+      document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const index = parseInt(e.target.id.split('-')[1]);
+          const newQuantity = parseInt(e.target.value);
+          if (newQuantity >= 1) {
+            cart[index].quantity = newQuantity;
+            saveCart();
+          }
+        });
+      });
+
+      document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', () => {
+          const index = parseInt(button.getAttribute('data-index'));
+          cart.splice(index, 1);
+          saveCart();
+        });
+      });
+    }
+
+    // Toggle cart page
+    cartButton.addEventListener('click', () => {
+      mainContent.style.display = mainContent.style.display === 'none' ? 'block' : 'none';
+      cartPage.classList.toggle('active');
+      renderCart();
+    });
+
+    // Checkout button (placeholder)
+    checkoutButton.addEventListener('click', () => {
+      alert('Proceeding to checkout. This is a placeholder for payment integration.');
+    });
 
     // Search functionality
     const searchInput = document.getElementById('searchInput');
@@ -559,6 +339,7 @@
 
     // Initial render
     renderProducts(furnitureData);
+    updateCartButton();
   </script>
 </body>
 </html>
