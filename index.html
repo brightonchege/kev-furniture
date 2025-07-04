@@ -62,10 +62,10 @@
       text-align: center;
       border-radius: 0.5rem;
     }
-    .checkout-form input {
+    .checkout-form input, .edit-form input, .edit-form select {
       transition: all 0.3s ease;
     }
-    .checkout-form input:focus {
+    .checkout-form input:focus, .edit-form input:focus, .edit-form select:focus {
       box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
       border-color: #3b82f6;
     }
@@ -80,6 +80,9 @@
     .category-filter:hover {
       background-color: #3b82f6;
       color: #ffffff;
+    }
+    .edit-section {
+      animation: fadeIn 0.5s ease-in-out;
     }
   </style>
 </head>
@@ -119,7 +122,7 @@
     <section class="hero-bg py-32 text-white">
       <div class="container mx-auto px-4 text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Elevate Your Home with Premium Furniture</h1>
-        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto6912">Discover our curated collection of stylish, durable, and affordable furniture designed to transform your living spaces.</p>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">Discover our curated collection of stylish, durable, and affordable furniture designed to transform your living spaces.</p>
         <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
       </div>
     </section>
@@ -130,7 +133,7 @@
         <div class="flex flex-wrap justify-center gap-4">
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="all">All</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="sofas">Sofas</button>
-          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="tables">Tables</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-mediumhazardous://bg-blue-600 hover:text-white transition-colors" data-category="tables">Tables</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="beds">Beds</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="storage">Storage</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="chairs">Chairs</button>
@@ -213,6 +216,62 @@
     </div>
   </section>
 
+  <!-- Edit Section -->
+  <section id="editSection" class="edit-section py-20 bg-gray-50 hidden">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">Edit Products</h2>
+      <div id="editAuthForm" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Enter Edit Mode</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="editPassword" class="block text-gray-600 font-medium">Password</label>
+            <input type="text" id="editPassword" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter 'edit' to proceed">
+          </div>
+          <button id="enterEditMode" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Enter</button>
+        </div>
+      </div>
+      <div id="editForm" class="edit-form mt-8 hidden max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Add New Product</h3>
+        <div class="space-y-6">
+          <div>
+            <label for="productName" class="block text-gray-600 font-medium">Product Name</label>
+            <input type="text" id="productName" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter product name" required>
+          </div>
+          <div>
+            <label for="productDescription" class="block text-gray-600 font-medium">Description</label>
+            <input type="text" id="productDescription" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter product description" required>
+          </div>
+          <div>
+            <label for="productPrice" class="block text-gray-600 font-medium">Price (KSh)</label>
+            <input type="number" id="productPrice" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter price" required>
+          </div>
+          <div>
+            <label for="productImage" class="block text-gray-600 font-medium">Image URL</label>
+            <input type="url" id="productImage" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter image URL" required>
+          </div>
+          <div>
+            <label for="productCategory" class="block text-gray-600 font-medium">Category</label>
+            <select id="productCategory" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" required>
+              <option value="sofas">Sofas</option>
+              <option value="tables">Tables</option>
+              <option value="beds">Beds</option>
+              <option value="storage">Storage</option>
+              <option value="chairs">Chairs</option>
+              <option value="desks">Desks</option>
+              <option value="shelves">Shelves</option>
+              <option value="outdoor">Outdoor</option>
+              <option value="decor">Decor</option>
+            </select>
+          </div>
+          <div class="flex space-x-4">
+            <button id="saveProduct" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Save Product</button>
+            <button id="exitEdit" class="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">Exit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-4 text-center">
@@ -222,13 +281,14 @@
         <a href="#products" class="text-gray-400 hover:text-blue-400 transition-colors">Shop</a>
         <a href="#about" class="text-gray-400 hover:text-blue-400 transition-colors">About</a>
         <a href="#contact" class="text-gray-400 hover:text-blue-400 transition-colors">Contact</a>
+        <a href="#editSection" id="editButton" class="text-gray-400 hover:text-blue-400 transition-colors">Enter Edit Mode</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Furniture data (expanded to 50 products)
-    const furnitureData = [
+    // Furniture data (50 products)
+    let furnitureData = [
       { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
       { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true, category: "tables" },
       { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Queen+Bed", inStock: true, category: "beds" },
@@ -283,6 +343,7 @@
 
     // Cart functionality
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let hasUnsavedChanges = false;
     const cartButton = document.getElementById('cartButton');
     const productGrid = document.getElementById('productGrid');
     const noResults = document.getElementById('noResults');
@@ -295,6 +356,13 @@
     const backToShop = document.getElementById('backToShop');
     const checkoutForm = document.getElementById('checkoutForm');
     const submitCheckout = document.getElementById('submitCheckout');
+    const editSection = document.getElementById('editSection');
+    const editButton = document.getElementById('editButton');
+    const editAuthForm = document.getElementById('editAuthForm');
+    const editForm = document.getElementById('editForm');
+    const enterEditMode = document.getElementById('enterEditMode');
+    const saveProduct = document.getElementById('saveProduct');
+    const exitEdit = document.getElementById('exitEdit');
     let currentCategory = 'all';
 
     // Update cart button count
@@ -308,6 +376,13 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartButton();
       renderCart();
+    }
+
+    // Save products to localStorage
+    function saveProducts() {
+      localStorage.setItem('furnitureData', JSON.stringify(furnitureData));
+      hasUnsavedChanges = false;
+      filterProducts();
     }
 
     // Render products
@@ -395,7 +470,7 @@
       }
     }
 
-    // Event delegation for cart actions
+    // Event delegation for cart and edit actions
     document.addEventListener('click', async (e) => {
       if (e.target.classList.contains('add-to-cart')) {
         const id = parseInt(e.target.getAttribute('data-id'));
@@ -421,12 +496,14 @@
       if (e.target.id === 'cartButton') {
         mainContent.classList.toggle('hidden');
         cartPage.classList.toggle('hidden');
+        editSection.classList.add('hidden');
         renderCart();
       }
 
       if (e.target.id === 'backToShop') {
         mainContent.classList.remove('hidden');
         cartPage.classList.add('hidden');
+        editSection.classList.add('hidden');
       }
 
       if (e.target.id === 'checkoutButton') {
@@ -479,6 +556,80 @@
         e.target.classList.add('bg-blue-600', 'text-white');
         filterProducts();
       }
+
+      if (e.target.id === 'editButton') {
+        mainContent.classList.add('hidden');
+        cartPage.classList.add('hidden');
+        editSection.classList.remove('hidden');
+        editAuthForm.classList.remove('hidden');
+        editForm.classList.add('hidden');
+      }
+
+      if (e.target.id === 'enterEditMode') {
+        const editPassword = document.getElementById('editPassword').value.trim();
+        if (editPassword.toLowerCase() === 'edit') {
+          editAuthForm.classList.add('hidden');
+          editForm.classList.remove('hidden');
+          document.getElementById('editPassword').value = '';
+        } else {
+          alert('Please enter the correct password: "edit"');
+        }
+      }
+
+      if (e.target.id === 'saveProduct') {
+        const name = document.getElementById('productName').value.trim();
+        const description = document.getElementById('productDescription').value.trim();
+        const price = parseInt(document.getElementById('productPrice').value);
+        const image = document.getElementById('productImage').value.trim();
+        const category = document.getElementById('productCategory').value;
+
+        if (!name || !description || !price || !image || !category) {
+          alert('Please fill in all fields.');
+          return;
+        }
+
+        if (!image.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i)) {
+          alert('Please enter a valid image URL ending in .jpg, .jpeg, .png, or .gif.');
+          return;
+        }
+
+        const newId = Math.max(...furnitureData.map(p => p.id)) + 1;
+        furnitureData.push({
+          id: newId,
+          name,
+          description,
+          price,
+          image,
+          inStock: true,
+          category
+        });
+
+        saveProducts();
+        alert('Product added successfully!');
+        document.getElementById('productName').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productImage').value = '';
+        document.getElementById('productCategory').value = 'sofas';
+      }
+
+      if (e.target.id === 'exitEdit') {
+        if (hasUnsavedChanges) {
+          if (!confirm('You have unsaved changes. Are you sure you want to exit without saving?')) {
+            return;
+          }
+        }
+        editSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        editAuthForm.classList.remove('hidden');
+        editForm.classList.add('hidden');
+        document.getElementById('productName').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productImage').value = '';
+        document.getElementById('productCategory').value = 'sofas';
+        hasUnsavedChanges = false;
+      }
     });
 
     // Quantity input change
@@ -492,6 +643,10 @@
         } else {
           e.target.value = cart[index].quantity;
         }
+      }
+
+      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory') {
+        hasUnsavedChanges = true;
       }
     });
 
@@ -531,6 +686,12 @@
         }
       });
     });
+
+    // Load products from localStorage if available
+    const storedProducts = localStorage.getItem('furnitureData');
+    if (storedProducts) {
+      furnitureData = JSON.parse(storedProducts);
+    }
 
     // Initial render
     renderProducts(furnitureData);
