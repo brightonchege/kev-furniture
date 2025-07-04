@@ -230,7 +230,10 @@
             <label for="editPassword" class="block text-gray-600 font-medium">Password</label>
             <input type="text" id="editPassword" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Password">
           </div>
-          <button id="enterEditMode" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Enter</button>
+          <div class="flex space-x-4">
+            <button id="enterEditMode" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Enter</button>
+            <button id="backFromEditAuth" class="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">Back</button>
+          </div>
         </div>
       </div>
       <div id="editForm" class="edit-form mt-8 hidden max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
@@ -371,6 +374,7 @@
     const editAuthForm = document.getElementById('editAuthForm');
     const editForm = document.getElementById('editForm');
     const enterEditMode = document.getElementById('enterEditMode');
+    const backFromEditAuth = document.getElementById('backFromEditAuth');
     const saveProduct = document.getElementById('saveProduct');
     const exitEdit = document.getElementById('exitEdit');
     const productList = document.getElementById('productList');
@@ -610,6 +614,12 @@
         } else {
           alert('Please enter the correct password.');
         }
+      }
+
+      if (e.target.id === 'backFromEditAuth') {
+        editSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        document.getElementById('editPassword').value = '';
       }
 
       if (e.target.id === 'saveProduct') {
