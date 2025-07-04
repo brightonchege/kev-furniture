@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Furniture Haven Kenya</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
     }
     .hamburger {
       display: none;
@@ -25,6 +26,14 @@
       }
       .nav-menu.active {
         display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
       }
     }
     .product-card {
@@ -32,13 +41,14 @@
     }
     .product-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
     }
     .search-bar {
       transition: all 0.3s ease;
     }
     .search-bar:focus {
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
     }
     .cart-page {
       animation: fadeIn 0.5s ease-in-out;
@@ -50,20 +60,34 @@
     .quantity-input {
       width: 80px;
       text-align: center;
+      border-radius: 0.5rem;
     }
     .checkout-form input {
       transition: all 0.3s ease;
     }
     .checkout-form input:focus {
-      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+      border-color: #3b82f6;
+    }
+    .hero-bg {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .category-filter {
+      transition: all 0.2s ease;
+    }
+    .category-filter:hover {
+      background-color: #3b82f6;
+      color: #ffffff;
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body>
   <!-- Header -->
-  <header class="bg-white shadow-lg sticky top-0 z-50">
+  <header class="bg-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <div class="text-3xl font-bold text-gray-800">
+      <div class="text-2xl font-bold text-gray-900">
         <a href="#" class="hover:text-blue-600 transition-colors">Furniture Haven</a>
       </div>
       <button class="hamburger md:hidden text-gray-600 focus:outline-none">
@@ -71,20 +95,20 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
       </button>
-      <nav class="nav-menu md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none p-4 md:p-0">
-        <a href="#" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Home</a>
-        <a href="#products" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Shop</a>
-        <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">About</a>
-        <a href="#contact" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Contact</a>
-        <div class="relative w-full md:w-64">
-          <input type="text" id="searchInput" class="search-bar w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search furniture...">
+      <nav class="nav-menu md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0">
+        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
+        <a href="#products" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Shop</a>
+        <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
+        <div class="relative w-full md:w-72">
+          <input type="text" id="searchInput" class="search-bar w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Search furniture...">
           <svg class="absolute right-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0a7 7 0 111.415-1.414L21 21z"></path>
           </svg>
         </div>
       </nav>
       <div>
-        <button id="cartButton" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">Cart (0)</button>
+        <button id="cartButton" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">Cart (0)</button>
       </div>
     </div>
   </header>
@@ -92,36 +116,50 @@
   <!-- Main Content -->
   <main id="mainContent">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-50 to-gray-100 py-20">
+    <section class="hero-bg py-32 text-white">
       <div class="container mx-auto px-4 text-center">
-        <h1 class="text-5xl font-bold text-gray-800 mb-4">Discover Premium Furniture</h1>
-        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Transform your home with our stylish and affordable furniture collections, crafted for comfort and elegance.</p>
-        <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Elevate Your Home with Premium Furniture</h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">Discover our curated collection of stylish, durable, and affordable furniture designed to transform your living spaces.</p>
+        <a href="#products" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="py-6 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-4">
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="all">All</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="sofas">Sofas</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="tables">Tables</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="beds">Beds</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="storage">Storage</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="chairs">Chairs</button>
+        </div>
       </div>
     </section>
 
     <!-- Product Section -->
     <section id="products" class="py-20 bg-white">
       <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Our Furniture Collections</h2>
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"></div>
-        <div id="noResults" class="hidden text-center text-gray-600 mt-8">Sorry, no items found.</div>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">Our Furniture Collections</h2>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        <div id="noResults" class="hidden text-center text-gray-600 mt-8 text-lg">No items found matching your criteria.</div>
       </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="py-20 bg-gray-100">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold text-gray-800 mb-6">About Furniture Haven</h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Furniture Haven Kenya is your one-stop shop for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a wide range of products with a 24-month warranty. Contact us at 0746811125 for inquiries.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">About Furniture Haven</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Furniture Haven Kenya is your trusted destination for high-quality, affordable furniture. Located at Sasa Mall G7, Moi Avenue, Nairobi, we offer a diverse range of products backed by a 24-month warranty. Contact us at +254 746 811 125 for inquiries.</p>
       </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-white">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold text-gray-800 mb-6">Get in Touch</h2>
-        <p class="text-lg text-gray-600 mb-8">Have questions? Reach out to us!</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+        <p class="text-lg text-gray-600 mb-8">We’re here to assist you with all your furniture needs!</p>
         <div class="flex justify-center space-x-6">
           <a href="tel:+254746811125" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">+254 746 811 125</a>
           <a href="mailto:info@furniturehaven.co.ke" class="text-blue-600 hover:text-blue-800 font-medium transition-colors">info@furniturehaven.co.ke</a>
@@ -141,48 +179,78 @@
   <!-- Cart Page -->
   <section id="cartPage" class="cart-page py-20 bg-gray-50 hidden">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-gray-800 text-center mb-12">Your Cart</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">Your Cart</h2>
       <div id="cartItems" class="space-y-6"></div>
-      <p id="emptyCartMessage" class="text-center text-gray-600 mt-8 hidden">Your cart is empty.</p>
-      <div class="mt-12 flex justify-between items-center">
-        <h3 id="cartTotal" class="text-2xl font-semibold text-gray-800">Total: KSh 0</h3>
-        <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-lg font-semibold hidden">Proceed to Checkout</button>
+      <p id="emptyCartMessage" class="text-center text-gray-600 mt-8 text-lg hidden">Your cart is empty.</p>
+      <div class="mt-12 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <h3 id="cartTotal" class="text-xl md:text-2xl font-semibold text-gray-900">Total: KSh 0</h3>
+        <button id="checkoutButton" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors text-lg font-semibold hidden">Proceed to Checkout</button>
       </div>
       <!-- Checkout Form -->
-      <div id="checkoutForm" class="checkout-form mt-8 hidden max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h3 class="text-xl font-semibold text-gray-800 mb-4">Enter Your Details</h3>
-        <div class="space-y-4">
+      <div id="checkoutForm" class="checkout-form mt-8 hidden max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Enter Your Details</h3>
+        <div class="space-y-6">
           <div>
-            <label for="customerName" class="block text-gray-600">Full Name</label>
-            <input type="text" id="customerName" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your full name" required>
+            <label for="customerName" class="block text-gray-600 font-medium">Full Name</label>
+            <input type="text" id="customerName" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter your full name" required>
           </div>
           <div>
-            <label for="customerPhone" class="block text-gray-600">Phone Number</label>
-            <input type="tel" id="customerPhone" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., +254123456789" required>
+            <label for="customerPhone" class="block text-gray-600 font-medium">Phone Number</label>
+            <input type="tel" id="customerPhone" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="e.g., +254123456789" required>
           </div>
-          <button id="submitCheckout" class="w-full bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">Confirm Order</button>
+          <button id="submitCheckout" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Confirm Order</button>
         </div>
       </div>
-      <button id="backToShop" class="mt-6 bg-gray-600 text-white px-8 py-3 rounded-full hover:bg-gray-700 transition-colors text-lg font-semibold">Continue Shopping</button>
+      <button id="backToShop" class="mt-6 bg-gray-600 text-white px-8 py-3 rounded-lg hover:bg-gray-700 transition-colors text-lg font-semibold">Continue Shopping</button>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-10">
+  <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-4 text-center">
       <p class="text-lg">© 2025 Furniture Haven Kenya. All rights reserved.</p>
-      <p class="mt-2">Sasa Mall G7, Moi Avenue, Nairobi</p>
+      <p class="mt-2 text-gray-400">Sasa Mall G7, Moi Avenue, Nairobi</p>
+      <div class="mt-4 flex justify-center space-x-4">
+        <a href="#products" class="text-gray-400 hover:text-blue-400 transition-colors">Shop</a>
+        <a href="#about" class="text-gray-400 hover:text-blue-400 transition-colors">About</a>
+        <a href="#contact" class="text-gray-400 hover:text-blue-400 transition-colors">Contact</a>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Furniture data
+    // Furniture data (expanded to ~30 products)
     const furnitureData = [
-      { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Sofa", inStock: true },
-      { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true },
-      { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Bed", inStock: true },
-      { id: 4, name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true },
-      { id: 5, name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true }
+      { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
+      { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true, category: "tables" },
+      { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Queen+Bed", inStock: true, category: "beds" },
+      { id: 4, name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true, category: "tables" },
+      { id: 5, name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true, category: "storage" },
+      { id: 6, name: "Leather Armchair", description: "Luxurious armchair for ultimate comfort.", price: 32000, image: "https://via.placeholder.com/300x200?text=Armchair", inStock: true, category: "chairs" },
+      { id: 7, name: "King Bed Frame", description: "Spacious and elegant bed frame for your master bedroom.", price: 75000, image: "https://via.placeholder.com/300x200?text=King+Bed", inStock: true, category: "beds" },
+      { id: 8, name: "Side Table", description: "Compact side table for small spaces.", price: 15000, image: "https://via.placeholder.com/300x200?text=Side+Table", inStock: true, category: "tables" },
+      { id: 9, name: "Wardrobe", description: "Spacious wardrobe with sliding doors.", price: 85000, image: "https://via.placeholder.com/300x200?text=Wardrobe", inStock: true, category: "storage" },
+      { id: 10, name: "L-Shaped Sofa", description: "Modern L-shaped sofa for spacious living rooms.", price: 95000, image: "https://via.placeholder.com/300x200?text=L-Shaped+Sofa", inStock: true, category: "sofas" },
+      { id: 11, name: "Bar Stool", description: "Sleek bar stools for your kitchen counter.", price: 12000, image: "https://via.placeholder.com/300x200?text=Bar+Stool", inStock: true, category: "chairs" },
+      { id: 12, name: "Console Table", description: "Elegant console table for entryways.", price: 28000, image: "https://via.placeholder.com/300x200?text=Console+Table", inStock: true, category: "tables" },
+      { id: 13, name: "Single Bed", description: "Compact bed frame for small bedrooms.", price: 35000, image: "https://via.placeholder.com/300x200?text=Single+Bed", inStock: true, category: "beds" },
+      { id: 14, name: "TV Stand", description: "Modern TV stand with storage compartments.", price: 40000, image: "https://via.placeholder.com/300x200?text=TV+Stand", inStock: true, category: "storage" },
+      { id: 15, name: "Recliner Chair", description: "Comfortable recliner for relaxation.", price: 45000, image: "https://via.placeholder.com/300x200?text=Recliner", inStock: true, category: "chairs" },
+      { id: 16, name: "Round Dining Table", description: "Chic round table for intimate dining.", price: 52000, image: "https://via.placeholder.com/300x200?text=Round+Table", inStock: true, category: "tables" },
+      { id: 17, name: "Sofa Bed", description: "Versatile sofa bed for guests.", price: 60000, image: "https://via.placeholder.com/300x200?text=Sofa+Bed", inStock: true, category: "sofas" },
+      { id: 18, name: "Storage Bench", description: "Functional bench with hidden storage.", price: 30000, image: "https://via.placeholder.com/300x200?text=Storage+Bench", inStock: true, category: "storage" },
+      { id: 19, name: "Office Chair", description: "Ergonomic chair for your home office.", price: 25000, image: "https://via.placeholder.com/300x200?text=Office+Chair", inStock: true, category: "chairs" },
+      { id: 20, name: "Dresser", description: "Elegant dresser with ample storage.", price: 50000, image: "https://via.placeholder.com/300x200?text=Dresser", inStock: true, category: "storage" },
+      { id: 21, name: "Sectional Sofa", description: "Spacious sectional sofa for large families.", price: 110000, image: "https://via.placeholder.com/300x200?text=Sectional+Sofa", inStock: true, category: "sofas" },
+      { id: 22, name: "Nightstand", description: "Compact nightstand for bedside essentials.", price: 18000, image: "https://via.placeholder.com/300x200?text=Nightstand", inStock: true, category: "tables" },
+      { id: 23, name: "Bunk Bed", description: "Space-saving bunk bed for kids.", price: 65000, image: "https://via.placeholder.com/300x200?text=Bunk+Bed", inStock: true, category: "beds" },
+      { id: 24, name: "Dining Chair", description: "Elegant dining chairs for your table.", price: 15000, image: "https://via.placeholder.com/300x200?text=Dining+Chair", inStock: true, category: "chairs" },
+      { id: 25, name: "Coffee Table Set", description: "Set of two nesting coffee tables.", price: 35000, image: "https://via.placeholder.com/300x200?text=Coffee+Table+Set", inStock: true, category: "tables" },
+      { id: 26, name: "Bookshelf Tall", description: "Tall bookshelf for extensive collections.", price: 45000, image: "https://via.placeholder.com/300x200?text=Tall+Bookshelf", inStock: true, category: "storage" },
+      { id: 27, name: "Chaise Lounge", description: "Luxurious chaise lounge for lounging.", price: 55000, image: "https://via.placeholder.com/300x200?text=Chaise+Lounge", inStock: true, category: "sofas" },
+      { id: 28, name: "Desk", description: "Modern desk for your workspace.", price: 40000, image: "https://via.placeholder.com/300x200?text=Desk", inStock: true, category: "tables" },
+      { id: 29, name: "Rocking Chair", description: "Classic rocking chair for relaxation.", price: 28000, image: "https://via.placeholder.com/300x200?text=Rocking+Chair", inStock: true, category: "chairs" },
+      { id: 30, name: "Cabinet", description: "Sleek cabinet for extra storage.", price: 42000, image: "https://via.placeholder.com/300x200?text=Cabinet", inStock: true, category: "storage" }
     ];
 
     // Cart functionality
@@ -199,6 +267,7 @@
     const backToShop = document.getElementById('backToShop');
     const checkoutForm = document.getElementById('checkoutForm');
     const submitCheckout = document.getElementById('submitCheckout');
+    let currentCategory = 'all';
 
     // Update cart button count
     function updateCartButton() {
@@ -223,14 +292,14 @@
       noResults.classList.add('hidden');
       products.forEach(product => {
         const productCard = document.createElement('div');
-        productCard.className = 'product-card bg-gray-50 shadow-lg rounded-xl overflow-hidden';
+        productCard.className = 'product-card bg-white shadow-md rounded-lg overflow-hidden';
         productCard.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
-            <p class="text-gray-600 mt-2">${product.description}</p>
-            <p class="text-blue-600 font-bold mt-3">KSh ${product.price.toLocaleString()}</p>
-            <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors w-full add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
+          <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-900">${product.name}</h3>
+            <p class="text-gray-600 text-sm mt-1">${product.description}</p>
+            <p class="text-blue-600 font-bold mt-2">KSh ${product.price.toLocaleString()}</p>
+            <button class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
               ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
             </button>
           </div>
@@ -245,7 +314,7 @@
       checkoutForm.classList.add('hidden');
       if (cart.length === 0) {
         emptyCartMessage.classList.remove('hidden');
-        cartTotal.textContent = 'Total: KSh 0';
+        cartTotal.textContent = 'Total0';
         checkoutButton.classList.add('hidden');
         return;
       }
@@ -255,12 +324,12 @@
         const cartItem = document.createElement('div');
         cartItem.className = 'flex items-center bg-white p-4 rounded-lg shadow-md';
         cartItem.innerHTML = `
-          <img src="${item.image}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+          <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
           <div class="flex-1 ml-4">
-            <h3 class="text-lg font-semibold text-gray-800">${item.name}</h3>
+            <h3 class="text-lg font-semibold text-gray-900">${item.name}</h3>
             <p class="text-gray-600">KSh ${item.price.toLocaleString()}</p>
             <div class="flex items-center mt-2">
-              <label for="quantity-${index}" class="mr-2">Quantity:</label>
+              <label for="quantity-${index}" class="mr-2 text-gray-600">Quantity:</label>
               <input type="number" id="quantity-${index}" class="quantity-input border border-gray-300 rounded-lg p-1" value="${item.quantity}" min="1">
             </div>
           </div>
@@ -276,25 +345,10 @@
 
     // Simulate sending SMS (replace with real SMS API in production)
     async function sendOrderSMS(customerName, customerPhone, orderDetails) {
-      const ownerPhone = '+254746811125'; // Owner's phone number
+      const ownerPhone = '+254746811125';
       const message = `New Order from ${customerName} (${customerPhone}):\n${orderDetails}\nTotal: KSh ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()}`;
-      
-      // Placeholder for SMS API call (e.g., Africa's Talking or Twilio)
       try {
-        // Simulated API call
         console.log(`Sending SMS to ${ownerPhone}: ${message}`);
-        // Example using fetch (uncomment and configure with real API):
-        /*
-        await fetch('https://api.smsprovider.com/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: ownerPhone,
-            message: message,
-            apiKey: 'YOUR_API_KEY'
-          })
-        });
-        */
         return true;
       } catch (error) {
         console.error('Error sending SMS:', error);
@@ -367,6 +421,13 @@
           alert('Failed to send order. Please try again or contact support.');
         }
       }
+
+      if (e.target.classList.contains('category-filter')) {
+        currentCategory = e.target.getAttribute('data-category');
+        document.querySelectorAll('.category-filter').forEach(btn => btn.classList.remove('bg-blue-600', 'text-white'));
+        e.target.classList.add('bg-blue-600', 'text-white');
+        filterProducts();
+      }
     });
 
     // Quantity input change
@@ -378,21 +439,27 @@
           cart[index].quantity = newQuantity;
           saveCart();
         } else {
-          e.target.value = cart[index].quantity; // Revert to previous value
+          e.target.value = cart[index].quantity;
         }
       }
     });
 
-    // Search functionality
+    // Search and filter functionality
     const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', () => {
+    searchInput.addEventListener('input', filterProducts);
+
+    function filterProducts() {
       const searchTerm = searchInput.value.toLowerCase();
-      const filteredProducts = furnitureData.filter(product =>
+      let filteredProducts = furnitureData;
+      if (currentCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+      }
+      filteredProducts = filteredProducts.filter(product =>
         product.name.toLowerCase().includes(searchTerm) ||
         product.description.toLowerCase().includes(searchTerm)
       );
       renderProducts(filteredProducts);
-    });
+    }
 
     // Hamburger menu toggle
     const hamburger = document.querySelector('.hamburger');
