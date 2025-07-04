@@ -50,7 +50,7 @@
       box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
       border-color: #3b82f6;
     }
-    .cart-page {
+    .cart-page, .edit-section {
       animation: fadeIn 0.5s ease-in-out;
     }
     @keyframes fadeIn {
@@ -81,8 +81,11 @@
       background-color: #3b82f6;
       color: #ffffff;
     }
-    .edit-section {
-      animation: fadeIn 0.5s ease-in-out;
+    /* Ensure two products per row on mobile */
+    @media (max-width: 640px) {
+      #productGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
   </style>
 </head>
@@ -133,7 +136,7 @@
         <div class="flex flex-wrap justify-center gap-4">
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="all">All</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="sofas">Sofas</button>
-          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-mediumhazardous://bg-blue-600 hover:text-white transition-colors" data-category="tables">Tables</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="tables">Tables</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="beds">Beds</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="storage">Storage</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="chairs">Chairs</button>
@@ -268,6 +271,8 @@
             <button id="exitEdit" class="flex-1 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">Exit</button>
           </div>
         </div>
+        <h3 class="text-xl font-semibold text-gray-900 mt-12 mb-6">Manage Existing Products</h3>
+        <div id="productList" class="space-y-4"></div>
       </div>
     </div>
   </section>
@@ -344,6 +349,7 @@
     // Cart functionality
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let hasUnsavedChanges = false;
+    let editingProductId = null;
     const cartButton = document.getElementById('cartButton');
     const productGrid = document.getElementById('productGrid');
     const noResults = document.getElementById('noResults');
@@ -363,6 +369,7 @@
     const enterEditMode = document.getElementById('enterEditMode');
     const saveProduct = document.getElementById('saveProduct');
     const exitEdit = document.getElementById('exitEdit');
+    const productList = document.getElementById('productList');
     let currentCategory = 'all';
 
     // Update cart button count
@@ -383,6 +390,7 @@
       localStorage.setItem('furnitureData', JSON.stringify(furnitureData));
       hasUnsavedChanges = false;
       filterProducts();
+      renderProductList();
     }
 
     // Render products
@@ -444,6 +452,28 @@
       // Update total
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
+    }
+
+    // Render product list in edit section
+    function renderProductList() {
+      productList.innerHTML = '';
+      furnitureData.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.className = 'flex items-center bg-gray-100 p-4 rounded-lg';
+        productItem.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">
+          <div class="flex-1 ml-4">
+            <h4 class="text-md font-semibold text-gray-900">${product.name}</h4>
+            <p class="text-gray-600 text-sm">${product.description}</p>
+            <p class="text-blue-600 text-sm">KSh ${product.price.toLocaleString()} | ${product.category} | ${product.inStock ? 'In Stock' : 'Out of Stock'}</p>
+          </div>
+          <div class="flex space-x-2">
+            <button class="edit-product bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors" data-id="${product.id}">Edit</button>
+            <button class="delete-product bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors" data-id="${product.id}">Delete</button>
+          </div>
+        `;
+        productList.appendChild(productItem);
+      });
     }
 
     // Simulate sending SMS (replace with real SMS API in production)
@@ -571,6 +601,9 @@
           editAuthForm.classList.add('hidden');
           editForm.classList.remove('hidden');
           document.getElementById('editPassword').value = '';
+          renderProductList();
+          document.getElementById('saveProduct').textContent = 'Save Product';
+          editingProductId = null;
         } else {
           alert('Please enter the correct password: "edit"');
         }
@@ -582,6 +615,7 @@
         const price = parseInt(document.getElementById('productPrice').value);
         const image = document.getElementById('productImage').value.trim();
         const category = document.getElementById('productCategory').value;
+        const inStock = document.getElementById('productInStock') ? document.getElementById('productInStock').checked : true;
 
         if (!name || !description || !price || !image || !category) {
           alert('Please fill in all fields.');
@@ -593,24 +627,51 @@
           return;
         }
 
-        const newId = Math.max(...furnitureData.map(p => p.id)) + 1;
-        furnitureData.push({
-          id: newId,
-          name,
-          description,
-          price,
-          image,
-          inStock: true,
-          category
-        });
+        if (editingProductId) {
+          const productIndex = furnitureData.findIndex(p => p.id === editingProductId);
+          furnitureData[productIndex] = { id: editingProductId, name, description, price, image, inStock, category };
+        } else {
+          const newId = furnitureData.length ? Math.max(...furnitureData.map(p => p.id)) + 1 : 1;
+          furnitureData.push({ id: newId, name, description, price, image, inStock, category });
+        }
 
         saveProducts();
-        alert('Product added successfully!');
+        alert(editingProductId ? 'Product updated successfully!' : 'Product added successfully!');
         document.getElementById('productName').value = '';
         document.getElementById('productDescription').value = '';
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
         document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('saveProduct').textContent = 'Save Product';
+        editingProductId = null;
+        if (document.getElementById('productInStock')) {
+          document.getElementById('productInStock').checked = true;
+        }
+      }
+
+      if (e.target.classList.contains('edit-product')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const product = furnitureData.find(p => p.id === id);
+        document.getElementById('productName').value = product.name;
+        document.getElementById('productDescription').value = product.description;
+        document.getElementById('productPrice').value = product.price;
+        document.getElementById('productImage').value = product.image;
+        document.getElementById('productCategory').value = product.category;
+        if (document.getElementById('productInStock')) {
+          document.getElementById('productInStock').checked = product.inStock;
+        }
+        document.getElementById('saveProduct').textContent = 'Update Product';
+        editingProductId = id;
+        hasUnsavedChanges = true;
+      }
+
+      if (e.target.classList.contains('delete-product')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        if (confirm(`Are you sure you want to delete ${furnitureData.find(p => p.id === id).name}?`)) {
+          furnitureData = furnitureData.filter(p => p.id !== id);
+          saveProducts();
+          alert('Product deleted successfully!');
+        }
       }
 
       if (e.target.id === 'exitEdit') {
@@ -628,11 +689,16 @@
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
         document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('saveProduct').textContent = 'Save Product';
+        editingProductId = null;
         hasUnsavedChanges = false;
+        if (document.getElementById('productInStock')) {
+          document.getElementById('productInStock').checked = true;
+        }
       }
     });
 
-    // Quantity input change
+    // Quantity and edit form input change
     document.addEventListener('change', (e) => {
       if (e.target.classList.contains('quantity-input')) {
         const index = parseInt(e.target.id.split('-')[1]);
@@ -645,7 +711,7 @@
         }
       }
 
-      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory') {
+      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory' || e.target.id === 'productInStock') {
         hasUnsavedChanges = true;
       }
     });
