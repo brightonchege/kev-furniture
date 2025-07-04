@@ -62,7 +62,7 @@
       text-align: center;
       border-radius: 0.5rem;
     }
-    .checkout-form input, .edit-form input, .edit-form select {
+    .checkout-form input, .edit-form input, .edit-form select, .edit-form input[type="checkbox"] {
       transition: all 0.3s ease;
     }
     .checkout-form input:focus, .edit-form input:focus, .edit-form select:focus {
@@ -265,6 +265,10 @@
               <option value="outdoor">Outdoor</option>
               <option value="decor">Decor</option>
             </select>
+          </div>
+          <div>
+            <label for="productInStock" class="block text-gray-600 font-medium">In Stock</label>
+            <input type="checkbox" id="productInStock" class="mt-1" checked>
           </div>
           <div class="flex space-x-4">
             <button id="saveProduct" class="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Save Product</button>
@@ -604,6 +608,7 @@
           renderProductList();
           document.getElementById('saveProduct').textContent = 'Save Product';
           editingProductId = null;
+          document.getElementById('productInStock').checked = true;
         } else {
           alert('Please enter the correct password: "edit"');
         }
@@ -615,7 +620,7 @@
         const price = parseInt(document.getElementById('productPrice').value);
         const image = document.getElementById('productImage').value.trim();
         const category = document.getElementById('productCategory').value;
-        const inStock = document.getElementById('productInStock') ? document.getElementById('productInStock').checked : true;
+        const inStock = document.getElementById('productInStock').checked;
 
         if (!name || !description || !price || !image || !category) {
           alert('Please fill in all fields.');
@@ -642,11 +647,9 @@
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
         document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('productInStock').checked = true;
         document.getElementById('saveProduct').textContent = 'Save Product';
         editingProductId = null;
-        if (document.getElementById('productInStock')) {
-          document.getElementById('productInStock').checked = true;
-        }
       }
 
       if (e.target.classList.contains('edit-product')) {
@@ -657,12 +660,11 @@
         document.getElementById('productPrice').value = product.price;
         document.getElementById('productImage').value = product.image;
         document.getElementById('productCategory').value = product.category;
-        if (document.getElementById('productInStock')) {
-          document.getElementById('productInStock').checked = product.inStock;
-        }
+        document.getElementById('productInStock').checked = product.inStock;
         document.getElementById('saveProduct').textContent = 'Update Product';
         editingProductId = id;
         hasUnsavedChanges = true;
+        editForm.scrollIntoView({ behavior: 'smooth' });
       }
 
       if (e.target.classList.contains('delete-product')) {
@@ -689,12 +691,10 @@
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
         document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('productInStock').checked = true;
         document.getElementById('saveProduct').textContent = 'Save Product';
         editingProductId = null;
         hasUnsavedChanges = false;
-        if (document.getElementById('productInStock')) {
-          document.getElementById('productInStock').checked = true;
-        }
       }
     });
 
