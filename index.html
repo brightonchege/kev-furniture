@@ -228,7 +228,7 @@
         <div class="space-y-4">
           <div>
             <label for="editPassword" class="block text-gray-600 font-medium">Password</label>
-            <input type="text" id="editPassword" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter 'edit' to proceed">
+            <input type="text" id="editPassword" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Password">
           </div>
           <button id="enterEditMode" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium">Enter</button>
         </div>
@@ -595,8 +595,6 @@
         mainContent.classList.add('hidden');
         cartPage.classList.add('hidden');
         editSection.classList.remove('hidden');
-        editAuthForm.classList.remove('hidden');
-        editForm.classList.add('hidden');
       }
 
       if (e.target.id === 'enterEditMode') {
@@ -610,7 +608,7 @@
           editingProductId = null;
           document.getElementById('productInStock').checked = true;
         } else {
-          alert('Please enter the correct password: "edit"');
+          alert('Please enter the correct password.');
         }
       }
 
