@@ -62,10 +62,10 @@
       text-align: center;
       border-radius: 0.5rem;
     }
-    .checkout-form input, .edit-form input, .edit-form select, .edit-form input[type="checkbox"] {
+    .checkout-form input, .edit-form input, .edit-form select, .edit-form input[type="checkbox"], .edit-form input[type="file"] {
       transition: all 0.3s ease;
     }
-    .checkout-form input:focus, .edit-form input:focus, .edit-form select:focus {
+    .checkout-form input:focus, .edit-form input:focus, .edit-form select:focus, .edit-form input[type="file"]:focus {
       box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
       border-color: #3b82f6;
     }
@@ -140,7 +140,7 @@
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="beds">Beds</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="storage">Storage</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="chairs">Chairs</button>
-          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="desks">Desks</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg白 border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="desks">Desks</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="shelves">Shelves</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="outdoor">Outdoor</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="decor">Decor</button>
@@ -253,7 +253,17 @@
           </div>
           <div>
             <label for="productImage" class="block text-gray-600 font-medium">Image URL</label>
-            <input type="url" id="productImage" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter image URL" required>
+            <input type="url" id="productImage" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" placeholder="Enter image URL">
+          </div>
+          <div>
+            <label for="imageUpload" class="block text-gray-600 font-medium">Upload Image</label>
+            <input type="file" id="imageUpload" accept="image/jpeg,image/png,image/gif" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50">
+          </div>
+          <div>
+            <label for="imageSelect" class="block text-gray-600 font-medium">Select Uploaded Image</label>
+            <select id="imageSelect" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50">
+              <option value="">Select an image</option>
+            </select>
           </div>
           <div>
             <label for="productCategory" class="block text-gray-600 font-medium">Category</label>
@@ -299,6 +309,16 @@
   </footer>
 
   <script>
+    // IMPORTANT: To prevent users from easily viewing the JavaScript code via "View Source",
+    // consider obfuscating this script before deployment.
+    // Steps to obfuscate:
+    // 1. Copy the content of this <script> tag.
+    // 2. Paste it into a JavaScript obfuscation tool like JavaScript Obfuscator (https://obfuscator.io/) or UglifyJS.
+    // 3. Configure options (e.g., enable string compression, identifier mangling, etc.).
+    // 4. Replace this script content with the obfuscated version or move to a separate obfuscated script.js file.
+    // Note: Obfuscation makes the code harder to read but does not provide absolute security.
+    // For critical applications, consider moving sensitive logic to a server-side backend.
+
     // Furniture data (50 products)
     let furnitureData = [
       { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
@@ -357,6 +377,7 @@
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let hasUnsavedChanges = false;
     let editingProductId = null;
+    let uploadedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
     const cartButton = document.getElementById('cartButton');
     const productGrid = document.getElementById('productGrid');
     const noResults = document.getElementById('noResults');
@@ -378,6 +399,8 @@
     const saveProduct = document.getElementById('saveProduct');
     const exitEdit = document.getElementById('exitEdit');
     const productList = document.getElementById('productList');
+    const imageUpload = document.getElementById('imageUpload');
+    const imageSelect = document.getElementById('imageSelect');
     let currentCategory = 'all';
 
     // Update cart button count
@@ -399,6 +422,22 @@
       hasUnsavedChanges = false;
       filterProducts();
       renderProductList();
+    }
+
+    // Save uploaded images to localStorage
+    function saveUploadedImages() {
+      localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
+    }
+
+    // Render uploaded images in select dropdown
+    function renderImageSelect() {
+      imageSelect.innerHTML = '<option value="">Select an image</option>';
+      uploadedImages.forEach((image, index) => {
+        const option = document.createElement('option');
+        option.value = image.url;
+        option.textContent = image.name;
+        imageSelect.appendChild(option);
+      });
     }
 
     // Render products
@@ -599,6 +638,7 @@
         mainContent.classList.add('hidden');
         cartPage.classList.add('hidden');
         editSection.classList.remove('hidden');
+        renderImageSelect();
       }
 
       if (e.target.id === 'enterEditMode') {
@@ -608,6 +648,7 @@
           editForm.classList.remove('hidden');
           document.getElementById('editPassword').value = '';
           renderProductList();
+          renderImageSelect();
           document.getElementById('saveProduct').textContent = 'Save Product';
           editingProductId = null;
           document.getElementById('productInStock').checked = true;
@@ -626,17 +667,17 @@
         const name = document.getElementById('productName').value.trim();
         const description = document.getElementById('productDescription').value.trim();
         const price = parseInt(document.getElementById('productPrice').value);
-        const image = document.getElementById('productImage').value.trim();
+        const image = document.getElementById('productImage').value.trim() || document.getElementById('imageSelect').value;
         const category = document.getElementById('productCategory').value;
         const inStock = document.getElementById('productInStock').checked;
 
         if (!name || !description || !price || !image || !category) {
-          alert('Please fill in all fields.');
+          alert('Please fill in all fields or select an image.');
           return;
         }
 
-        if (!image.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i)) {
-          alert('Please enter a valid image URL ending in .jpg, .jpeg, .png, or .gif.');
+        if (!image.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i) && !image.startsWith('blob:')) {
+          alert('Please enter a valid image URL ending in .jpg, .jpeg, .png, .gif, or select an uploaded image.');
           return;
         }
 
@@ -654,6 +695,8 @@
         document.getElementById('productDescription').value = '';
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
+        document.getElementById('imageSelect').value = '';
+        document.getElementById('imageUpload').value = '';
         document.getElementById('productCategory').value = 'sofas';
         document.getElementById('productInStock').checked = true;
         document.getElementById('saveProduct').textContent = 'Save Product';
@@ -667,6 +710,7 @@
         document.getElementById('productDescription').value = product.description;
         document.getElementById('productPrice').value = product.price;
         document.getElementById('productImage').value = product.image;
+        document.getElementById('imageSelect').value = product.image;
         document.getElementById('productCategory').value = product.category;
         document.getElementById('productInStock').checked = product.inStock;
         document.getElementById('saveProduct').textContent = 'Update Product';
@@ -698,6 +742,8 @@
         document.getElementById('productDescription').value = '';
         document.getElementById('productPrice').value = '';
         document.getElementById('productImage').value = '';
+        document.getElementById('imageSelect').value = '';
+        document.getElementById('imageUpload').value = '';
         document.getElementById('productCategory').value = 'sofas';
         document.getElementById('productInStock').checked = true;
         document.getElementById('saveProduct').textContent = 'Save Product';
@@ -719,7 +765,28 @@
         }
       }
 
-      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory' || e.target.id === 'productInStock') {
+      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory' || e.target.id === 'productInStock' || e.target.id === 'imageSelect') {
+        hasUnsavedChanges = true;
+      }
+
+      if (e.target.id === 'imageUpload' && e.target.files.length > 0) {
+        const file = e.target.files[0];
+        if (!file.type.match(/^image\/(jpg|jpeg|png|gif)$/)) {
+          alert('Please upload a valid image file (.jpg, .jpeg, .png, .gif).');
+          e.target.value = '';
+          return;
+        }
+        const url = URL.createObjectURL(file);
+        uploadedImages.push({ name: file.name, url });
+        saveUploadedImages();
+        renderImageSelect();
+        document.getElementById('imageSelect').value = url;
+        document.getElementById('productImage').value = url;
+        hasUnsavedChanges = true;
+      }
+
+      if (e.target.id === 'imageSelect' && e.target.value) {
+        document.getElementById('productImage').value = e.target.value;
         hasUnsavedChanges = true;
       }
     });
@@ -770,6 +837,7 @@
     // Initial render
     renderProducts(furnitureData);
     updateCartButton();
+    renderImageSelect();
   </script>
 </body>
 </html>
