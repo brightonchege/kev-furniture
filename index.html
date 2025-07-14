@@ -309,17 +309,21 @@
   </footer>
 
   <script>
-    // IMPORTANT: To prevent users from easily viewing the JavaScript code via "View Source",
-    // consider obfuscating this script before deployment.
-    // Steps to obfuscate:
-    // 1. Copy the content of this <script> tag.
-    // 2. Paste it into a JavaScript obfuscation tool like JavaScript Obfuscator (https://obfuscator.io/) or UglifyJS.
-    // 3. Configure options (e.g., enable string compression, identifier mangling, etc.).
-    // 4. Replace this script content with the obfuscated version or move to a separate obfuscated script.js file.
-    // Note: Obfuscation makes the code harder to read but does not provide absolute security.
-    // For critical applications, consider moving sensitive logic to a server-side backend.
+// Firebase Initialization
+const firebaseConfig = {
+  apiKey: "AIzaSyBZRH2Q8CtxFh41Qq9MM0zELC2SqXEE_Js",
+  authDomain: "furniturehavenkenya.firebaseapp.com",
+  projectId: "furniturehavenkenya",
+  storageBucket: "furniturehavenkenya.firebasestorage.app",
+  messagingSenderId: "673026132624",
+  appId: "1:673026132624:web:ef31c567461c444895a615",
+  measurementId: "G-WSDT63FF2E"
+};
 
-    // Furniture data (50 products)
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();
     let furnitureData = [
       { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
       { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true, category: "tables" },
