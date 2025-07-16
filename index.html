@@ -1,3 +1,4 @@
+provide ways i oul add a databse to this code 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,6 @@
   <title>Furniture Haven Kenya</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -144,7 +141,7 @@
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="beds">Beds</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="storage">Storage</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="chairs">Chairs</button>
-          <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="desks">Desks</button>
+          <button class="category-filter px-4 py-2 rounded-lg bg白 border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="desks">Desks</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="shelves">Shelves</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="outdoor">Outdoor</button>
           <button class="category-filter px-4 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 font-medium hover:bg-blue-600 hover:text-white transition-colors" data-category="decor">Decor</button>
@@ -313,544 +310,540 @@
   </footer>
 
   <script>
-    window.onload = function() {
-      // Firebase Initialization
-      const firebaseConfig = {
-        apiKey: "AIzaSyBZRH2Q8CtxFh41Qq9MM0zELC2SqXEE_Js",
-        authDomain: "furniturehavenkenya.firebaseapp.com",
-        projectId: "furniturehavenkenya",
-        storageBucket: "furniturehavenkenya.firebasestorage.app",
-        messagingSenderId: "673026132624",
-        appId: "1:673026132624:web:ef31c567461c444895a615",
-        measurementId: "G-WSDT63FF2E"
-      };
+    // IMPORTANT: To prevent users from easily viewing the JavaScript code via "View Source",
+    // consider obfuscating this script before deployment.
+    // Steps to obfuscate:
+    // 1. Copy the content of this <script> tag.
+    // 2. Paste it into a JavaScript obfuscation tool like JavaScript Obfuscator (https://obfuscator.io/) or UglifyJS.
+    // 3. Configure options (e.g., enable string compression, identifier mangling, etc.).
+    // 4. Replace this script content with the obfuscated version or move to a separate obfuscated script.js file.
+    // Note: Obfuscation makes the code harder to read but does not provide absolute security.
+    // For critical applications, consider moving sensitive logic to a server-side backend.
 
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
-      const storage = firebase.storage();
-      console.log("Firebase SDK loaded:", typeof firebase !== "undefined");
+    // Furniture data (50 products)
+    let furnitureData = [
+      { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
+      { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true, category: "tables" },
+      { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Queen+Bed", inStock: true, category: "beds" },
+      { id: 4, name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true, category: "tables" },
+      { id: 5, name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true, category: "shelves" },
+      { id: 6, name: "Leather Armchair", description: "Luxurious armchair for ultimate comfort.", price: 32000, image: "https://via.placeholder.com/300x200?text=Armchair", inStock: true, category: "chairs" },
+      { id: 7, name: "King Bed Frame", description: "Spacious and elegant bed frame for your master bedroom.", price: 75000, image: "https://via.placeholder.com/300x200?text=King+Bed", inStock: true, category: "beds" },
+      { id: 8, name: "Side Table", description: "Compact side table for small spaces.", price: 15000, image: "https://via.placeholder.com/300x200?text=Side+Table", inStock: true, category: "tables" },
+      { id: 9, name: "Wardrobe", description: "Spacious wardrobe with sliding doors.", price: 85000, image: "https://via.placeholder.com/300x200?text=Wardrobe", inStock: true, category: "storage" },
+      { id: 10, name: "L-Shaped Sofa", description: "Modern L-shaped sofa for spacious living rooms.", price: 95000, image: "https://via.placeholder.com/300x200?text=L-Shaped+Sofa", inStock: true, category: "sofas" },
+      { id: 11, name: "Bar Stool", description: "Sleek bar stools for your kitchen counter.", price: 12000, image: "https://via.placeholder.com/300x200?text=Bar+Stool", inStock: true, category: "chairs" },
+      { id: 12, name: "Console Table", description: "Elegant console table for entryways.", price: 28000, image: "https://via.placeholder.com/300x200?text=Console+Table", inStock: true, category: "tables" },
+      { id: 13, name: "Single Bed", description: "Compact bed frame for small bedrooms.", price: 35000, image: "https://via.placeholder.com/300x200?text=Single+Bed", inStock: true, category: "beds" },
+      { id: 14, name: "TV Stand", description: "Modern TV stand with storage compartments.", price: 40000, image: "https://via.placeholder.com/300x200?text=TV+Stand", inStock: true, category: "storage" },
+      { id: 15, name: "Recliner Chair", description: "Comfortable recliner for relaxation.", price: 45000, image: "https://via.placeholder.com/300x200?text=Recliner", inStock: true, category: "chairs" },
+      { id: 16, name: "Round Dining Table", description: "Chic round table for intimate dining.", price: 52000, image: "https://via.placeholder.com/300x200?text=Round+Table", inStock: true, category: "tables" },
+      { id: 17, name: "Sofa Bed", description: "Versatile sofa bed for guests.", price: 60000, image: "https://via.placeholder.com/300x200?text=Sofa+Bed", inStock: true, category: "sofas" },
+      { id: 18, name: "Storage Bench", description: "Functional bench with hidden storage.", price: 30000, image: "https://via.placeholder.com/300x200?text=Storage+Bench", inStock: true, category: "storage" },
+      { id: 19, name: "Office Chair", description: "Ergonomic chair for your home office.", price: 25000, image: "https://via.placeholder.com/300x200?text=Office+Chair", inStock: true, category: "chairs" },
+      { id: 20, name: "Dresser", description: "Elegant dresser with ample storage.", price: 50000, image: "https://via.placeholder.com/300x200?text=Dresser", inStock: true, category: "storage" },
+      { id: 21, name: "Sectional Sofa", description: "Spacious sectional sofa for large families.", price: 110000, image: "https://via.placeholder.com/300x200?text=Sectional+Sofa", inStock: true, category: "sofas" },
+      { id: 22, name: "Nightstand", description: "Compact nightstand for bedside essentials.", price: 18000, image: "https://via.placeholder.com/300x200?text=Nightstand", inStock: true, category: "tables" },
+      { id: 23, name: "Bunk Bed", description: "Space-saving bunk bed for kids.", price: 65000, image: "https://via.placeholder.com/300x200?text=Bunk+Bed", inStock: true, category: "beds" },
+      { id: 24, name: "Dining Chair", description: "Elegant dining chairs for your table.", price: 15000, image: "https://via.placeholder.com/300x200?text=Dining+Chair", inStock: true, category: "chairs" },
+      { id: 25, name: "Coffee Table Set", description: "Set of two nesting coffee tables.", price: 35000, image: "https://via.placeholder.com/300x200?text=Coffee+Table+Set", inStock: true, category: "tables" },
+      { id: 26, name: "Bookshelf Tall", description: "Tall bookshelf for extensive collections.", price: 45000, image: "https://via.placeholder.com/300x200?text=Tall+Bookshelf", inStock: true, category: "shelves" },
+      { id: 27, name: "Chaise Lounge", description: "Luxurious chaise lounge for lounging.", price: 55000, image: "https://via.placeholder.com/300x200?text=Chaise+Lounge", inStock: true, category: "sofas" },
+      { id: 28, name: "Desk", description: "Modern desk for your workspace.", price: 40000, image: "https://via.placeholder.com/300x200?text=Desk", inStock: true, category: "desks" },
+      { id: 29, name: "Rocking Chair", description: "Classic rocking chair for relaxation.", price: 28000, image: "https://via.placeholder.com/300x200?text=Rocking+Chair", inStock: true, category: "chairs" },
+      { id: 30, name: "Cabinet", description: "Sleek cabinet for extra storage.", price: 42000, image: "https://via.placeholder.com/300x200?text=Cabinet", inStock: true, category: "storage" },
+      { id: 31, name: "Outdoor Patio Set", description: "Durable patio set for outdoor relaxation.", price: 80000, image: "https://via.placeholder.com/300x200?text=Patio+Set", inStock: true, category: "outdoor" },
+      { id: 32, name: "Wall Mirror", description: "Elegant wall mirror for decor.", price: 20000, image: "https://via.placeholder.com/300x200?text=Wall+Mirror", inStock: true, category: "decor" },
+      { id: 33, name: "Study Desk", description: "Compact desk for students.", price: 32000, image: "https://via.placeholder.com/300x200?text=Study+Desk", inStock: true, category: "desks" },
+      { id: 34, name: "Floating Shelf", description: "Minimalist floating shelf for wall decor.", price: 15000, image: "https://via.placeholder.com/300x200?text=Floating+Shelf", inStock: true, category: "shelves" },
+      { id: 35, name: "Outdoor Lounge Chair", description: "Comfortable chair for outdoor spaces.", price: 25000, image: "https://via.placeholder.com/300x200?text=Outdoor+Chair", inStock: true, category: "outdoor" },
+      { id: 36, name: "Decorative Vase", description: "Stylish vase for home decor.", price: 8000, image: "https://via.placeholder.com/300x200?text=Decorative+Vase", inStock: true, category: "decor" },
+      { id: 37, name: "Corner Sofa", description: "Cozy corner sofa for compact spaces.", price: 70000, image: "https://via.placeholder.com/300x200?text=Corner+Sofa", inStock: true, category: "sofas" },
+      { id: 38, name: "Folding Table", description: "Portable folding table for versatile use.", price: 22000, image: "https://via.placeholder.com/300x200?text=Folding+Table", inStock: true, category: "tables" },
+      { id: 39, name: "Trundle Bed", description: "Space-saving bed with pull-out trundle.", price: 60000, image: "https://via.placeholder.com/300x200?text=Trundle+Bed", inStock: true, category: "beds" },
+      { id: 40, name: "Shoe Rack", description: "Organized shoe storage solution.", price: 18000, image: "https://via.placeholder.com/300x200?text=Shoe+Rack", inStock: true, category: "storage" },
+      { id: 41, name: "Accent Chair", description: "Vibrant chair to add flair to any room.", price: 27000, image: "https://via.placeholder.com/300x200?text=Accent+Chair", inStock: true, category: "chairs" },
+      { id: 42, name: "Outdoor Dining Table", description: "Weather-resistant table for outdoor dining.", price: 45000, image: "https://via.placeholder.com/300x200?text=Outdoor+Table", inStock: true, category: "outdoor" },
+      { id: 43, name: "Wall Art", description: "Modern wall art for home decor.", price: 12000, image: "https://via.placeholder.com/300x200?text=Wall+Art", inStock: true, category: "decor" },
+      { id: 44, name: "Executive Desk", description: "Spacious desk for professional workspaces.", price: 65000, image: "https://via.placeholder.com/300x200?text=Executive+Desk", inStock: true, category: "desks" },
+      { id: 45, name: "Cube Shelf", description: "Modular cube shelf for versatile storage.", price: 30000, image: "https://via.placeholder.com/300x200?text=Cube+Shelf", inStock: true, category: "shelves" },
+      { id: 46, name: "Outdoor Swing", description: "Relaxing swing for your patio.", price: 35000, image: "https://via.placeholder.com/300x200?text=Outdoor+Swing", inStock: true, category: "outdoor" },
+      { id: 47, name: "Table Lamp", description: "Stylish lamp for ambient lighting.", price: 10000, image: "https://via.placeholder.com/300x200?text=Table+Lamp", inStock: true, category: "decor" },
+      { id: 48, name: "Sleeper Sofa", description: "Compact sofa with pull-out bed.", price: 68000, image: "https://via.placeholder.com/300x200?text=Sleeper+Sofa", inStock: true, category: "sofas" },
+      { id: 49, name: "Bar Table", description: "Tall table for casual dining.", price: 30000, image: "https://via.placeholder.com/300x200?text=Bar+Table", inStock: true, category: "tables" },
+      { id: 50, name: "Storage Ottoman", description: "Versatile ottoman with hidden storage.", price: 22000, image: "https://via.placeholder.com/300x200?text=Storage+Ottoman", inStock: true, category: "storage" }
+    ];
 
-      // Furniture data (50 products)
-      let furnitureData = [
-        { id: 1, name: "Modern Sofa", description: "Comfortable and stylish sofa for your living room.", price: 45000, image: "https://via.placeholder.com/300x200?text=Modern+Sofa", inStock: true, category: "sofas" },
-        { id: 2, name: "Wooden Dining Table", description: "Elegant dining table for family gatherings.", price: 65000, image: "https://via.placeholder.com/300x200?text=Dining+Table", inStock: true, category: "tables" },
-        { id: 3, name: "Queen Bed Frame", description: "Sleek and sturdy bed frame for a cozy bedroom.", price: 55000, image: "https://via.placeholder.com/300x200?text=Queen+Bed", inStock: true, category: "beds" },
-        { id: 4, name: "Coffee Table", description: "Modern coffee table to complement your living space.", price: 25000, image: "https://via.placeholder.com/300x200?text=Coffee+Table", inStock: true, category: "tables" },
-        { id: 5, name: "Bookshelf", description: "Stylish bookshelf for your home office or living room.", price: 35000, image: "https://via.placeholder.com/300x200?text=Bookshelf", inStock: true, category: "shelves" },
-        { id: 6, name: "Leather Armchair", description: "Luxurious armchair for ultimate comfort.", price: 32000, image: "https://via.placeholder.com/300x200?text=Armchair", inStock: true, category: "chairs" },
-        { id: 7, name: "King Bed Frame", description: "Spacious and elegant bed frame for your master bedroom.", price: 75000, image: "https://via.placeholder.com/300x200?text=King+Bed", inStock: true, category: "beds" },
-        { id: 8, name: "Side Table", description: "Compact side table for small spaces.", price: 15000, image: "https://via.placeholder.com/300x200?text=Side+Table", inStock: true, category: "tables" },
-        { id: 9, name: "Wardrobe", description: "Spacious wardrobe with sliding doors.", price: 85000, image: "https://via.placeholder.com/300x200?text=Wardrobe", inStock: true, category: "storage" },
-        { id: 10, name: "L-Shaped Sofa", description: "Modern L-shaped sofa for spacious living rooms.", price: 95000, image: "https://via.placeholder.com/300x200?text=L-Shaped+Sofa", inStock: true, category: "sofas" },
-        { id: 11, name: "Bar Stool", description: "Sleek bar stools for your kitchen counter.", price: 12000, image: "https://via.placeholder.com/300x200?text=Bar+Stool", inStock: true, category: "chairs" },
-        { id: 12, name: "Console Table", description: "Elegant console table for entryways.", price: 28000, image: "https://via.placeholder.com/300x200?text=Console+Table", inStock: true, category: "tables" },
-        { id: 13, name: "Single Bed", description: "Compact bed frame for small bedrooms.", price: 35000, image: "https://via.placeholder.com/300x200?text=Single+Bed", inStock: true, category: "beds" },
-        { id: 14, name: "TV Stand", description: "Modern TV stand with storage compartments.", price: 40000, image: "https://via.placeholder.com/300x200?text=TV+Stand", inStock: true, category: "storage" },
-        { id: 15, name: "Recliner Chair", description: "Comfortable recliner for relaxation.", price: 45000, image: "https://via.placeholder.com/300x200?text=Recliner", inStock: true, category: "chairs" },
-        { id: 16, name: "Round Dining Table", description: "Chic round table for intimate dining.", price: 52000, image: "https://via.placeholder.com/300x200?text=Round+Table", inStock: true, category: "tables" },
-        { id: 17, name: "Sofa Bed", description: "Versatile sofa bed for guests.", price: 60000, image: "https://via.placeholder.com/300x200?text=Sofa+Bed", inStock: true, category: "sofas" },
-        { id: 18, name: "Storage Bench", description: "Functional bench with hidden storage.", price: 30000, image: "https://via.placeholder.com/300x200?text=Storage+Bench", inStock: true, category: "storage" },
-        { id: 19, name: "Office Chair", description: "Ergonomic chair for your home office.", price: 25000, image: "https://via.placeholder.com/300x200?text=Office+Chair", inStock: true, category: "chairs" },
-        { id: 20, name: "Dresser", description: "Elegant dresser with ample storage.", price: 50000, image: "https://via.placeholder.com/300x200?text=Dresser", inStock: true, category: "storage" },
-        { id: 21, name: "Sectional Sofa", description: "Spacious sectional sofa for large families.", price: 110000, image: "https://via.placeholder.com/300x200?text=Sectional+Sofa", inStock: true, category: "sofas" },
-        { id: 22, name: "Nightstand", description: "Compact nightstand for bedside essentials.", price: 18000, image: "https://via.placeholder.com/300x200?text=Nightstand", inStock: true, category: "tables" },
-        { id: 23, name: "Bunk Bed", description: "Space-saving bunk bed for kids.", price: 65000, image: "https://via.placeholder.com/300x200?text=Bunk+Bed", inStock: true, category: "beds" },
-        { id: 24, name: "Dining Chair", description: "Elegant dining chairs for your table.", price: 15000, image: "https://via.placeholder.com/300x200?text=Dining+Chair", inStock: true, category: "chairs" },
-        { id: 25, name: "Coffee Table Set", description: "Set of two nesting coffee tables.", price: 35000, image: "https://via.placeholder.com/300x200?text=Coffee+Table+Set", inStock: true, category: "tables" },
-        { id: 26, name: "Bookshelf Tall", description: "Tall bookshelf for extensive collections.", price: 45000, image: "https://via.placeholder.com/300x200?text=Tall+Bookshelf", inStock: true, category: "shelves" },
-        { id: 27, name: "Chaise Lounge", description: "Luxurious chaise lounge for lounging.", price: 55000, image: "https://via.placeholder.com/300x200?text=Chaise+Lounge", inStock: true, category: "sofas" },
-        { id: 28, name: "Desk", description: "Modern desk for your workspace.", price: 40000, image: "https://via.placeholder.com/300x200?text=Desk", inStock: true, category: "desks" },
-        { id: 29, name: "Rocking Chair", description: "Classic rocking chair for relaxation.", price: 28000, image: "https://via.placeholder.com/300x200?text=Rocking+Chair", inStock: true, category: "chairs" },
-        { id: 30, name: "Cabinet", description: "Sleek cabinet for extra storage.", price: 42000, image: "https://via.placeholder.com/300x200?text=Cabinet", inStock: true, category: "storage" },
-        { id: 31, name: "Outdoor Patio Set", description: "Durable patio set for outdoor relaxation.", price: 80000, image: "https://via.placeholder.com/300x200?text=Patio+Set", inStock: true, category: "outdoor" },
-        { id: 32, name: "Wall Mirror", description: "Elegant wall mirror for decor.", price: 20000, image: "https://via.placeholder.com/300x200?text=Wall+Mirror", inStock: true, category: "decor" },
-        { id: 33, name: "Study Desk", description: "Compact desk for students.", price: 32000, image: "https://via.placeholder.com/300x200?text=Study+Desk", inStock: true, category: "desks" },
-        { id: 34, name: "Floating Shelf", description: "Minimalist floating shelf for wall decor.", price: 15000, image: "https://via.placeholder.com/300x200?text=Floating+Shelf", inStock: true, category: "shelves" },
-        { id: 35, name: "Outdoor Lounge Chair", description: "Comfortable chair for outdoor spaces.", price: 25000, image: "https://via.placeholder.com/300x200?text=Outdoor+Chair", inStock: true, category: "outdoor" },
-        { id: 36, name: "Decorative Vase", description: "Stylish vase for home decor.", price: 8000, image: "https://via.placeholder.com/300x200?text=Decorative+Vase", inStock: true, category: "decor" },
-        { id: 37, name: "Corner Sofa", description: "Cozy corner sofa for compact spaces.", price: 70000, image: "https://via.placeholder.com/300x200?text=Corner+Sofa", inStock: true, category: "sofas" },
-        { id: 38, name: "Folding Table", description: "Portable folding table for versatile use.", price: 22000, image: "https://via.placeholder.com/300x200?text=Folding+Table", inStock: true, category: "tables" },
-        { id: 39, name: "Trundle Bed", description: "Space-saving bed with pull-out trundle.", price: 60000, image: "https://via.placeholder.com/300x200?text=Trundle+Bed", inStock: true, category: "beds" },
-        { id: 40, name: "Shoe Rack", description: "Organized shoe storage solution.", price: 18000, image: "https://via.placeholder.com/300x200?text=Shoe+Rack", inStock: true, category: "storage" },
-        { id: 41, name: "Accent Chair", description: "Vibrant chair to add flair to any room.", price: 27000, image: "https://via.placeholder.com/300x200?text=Accent+Chair", inStock: true, category: "chairs" },
-        { id: 42, name: "Outdoor Dining Table", description: "Weather-resistant table for outdoor dining.", price: 45000, image: "https://via.placeholder.com/300x200?text=Outdoor+Table", inStock: true, category: "outdoor" },
-        { id: 43, name: "Wall Art", description: "Modern wall art for home decor.", price: 12000, image: "https://via.placeholder.com/300x200?text=Wall+Art", inStock: true, category: "decor" },
-        { id: 44, name: "Executive Desk", description: "Spacious desk for professional workspaces.", price: 65000, image: "https://via.placeholder.com/300x200?text=Executive+Desk", inStock: true, category: "desks" },
-        { id: 45, name: "Cube Shelf", description: "Modular cube shelf for versatile storage.", price: 30000, image: "https://via.placeholder.com/300x200?text=Cube+Shelf", inStock: true, category: "shelves" },
-        { id: 46, name: "Outdoor Swing", description: "Relaxing swing for your patio.", price: 35000, image: "https://via.placeholder.com/300x200?text=Outdoor+Swing", inStock: true, category: "outdoor" },
-        { id: 47, name: "Table Lamp", description: "Stylish lamp for ambient lighting.", price: 10000, image: "https://via.placeholder.com/300x200?text=Table+Lamp", inStock: true, category: "decor" },
-        { id: 48, name: "Sleeper Sofa", description: "Compact sofa with pull-out bed.", price: 68000, image: "https://via.placeholder.com/300x200?text=Sleeper+Sofa", inStock: true, category: "sofas" },
-        { id: 49, name: "Bar Table", description: "Tall table for casual dining.", price: 30000, image: "https://via.placeholder.com/300x200?text=Bar+Table", inStock: true, category: "tables" },
-        { id: 50, name: "Storage Ottoman", description: "Versatile ottoman with hidden storage.", price: 22000, image: "https://via.placeholder.com/300x200?text=Storage+Ottoman", inStock: true, category: "storage" }
-      ];
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let hasUnsavedChanges = false;
+    let editingProductId = null;
+    let uploadedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
+    const cartButton = document.getElementById('cartButton');
+    const productGrid = document.getElementById('productGrid');
+    const noResults = document.getElementById('noResults');
+    const mainContent = document.getElementById('mainContent');
+    const cartPage = document.getElementById('cartPage');
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const emptyCartMessage = document.getElementById('emptyCartMessage');
+    const checkoutButton = document.getElementById('checkoutButton');
+    const backToShop = document.getElementById('backToShop');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const submitCheckout = document.getElementById('submitCheckout');
+    const editSection = document.getElementById('editSection');
+    const editButton = document.getElementById('editButton');
+    const editAuthForm = document.getElementById('editAuthForm');
+    const editForm = document.getElementById('editForm');
+    const enterEditMode = document.getElementById('enterEditMode');
+    const backFromEditAuth = document.getElementById('backFromEditAuth');
+    const saveProduct = document.getElementById('saveProduct');
+    const exitEdit = document.getElementById('exitEdit');
+    const productList = document.getElementById('productList');
+    const imageUpload = document.getElementById('imageUpload');
+    const imageSelect = document.getElementById('imageSelect');
+    let currentCategory = 'all';
 
-      // Cart functionality
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      let hasUnsavedChanges = false;
-      let editingProductId = null;
-      let uploadedImages = JSON.parse(localStorage.getItem('uploadedImages')) || [];
-      const cartButton = document.getElementById('cartButton');
-      const productGrid = document.getElementById('productGrid');
-      const noResults = document.getElementById('noResults');
-      const mainContent = document.getElementById('mainContent');
-      const cartPage = document.getElementById('cartPage');
-      const cartItemsContainer = document.getElementById('cartItems');
-      const cartTotal = document.getElementById('cartTotal');
-      const emptyCartMessage = document.getElementById('emptyCartMessage');
-      const checkoutButton = document.getElementById('checkoutButton');
-      const backToShop = document.getElementById('backToShop');
-      const checkoutForm = document.getElementById('checkoutForm');
-      const submitCheckout = document.getElementById('submitCheckout');
-      const editSection = document.getElementById('editSection');
-      const editButton = document.getElementById('editButton');
-      const editAuthForm = document.getElementById('editAuthForm');
-      const editForm = document.getElementById('editForm');
-      const enterEditMode = document.getElementById('enterEditMode');
-      const backFromEditAuth = document.getElementById('backFromEditAuth');
-      const saveProduct = document.getElementById('saveProduct');
-      const exitEdit = document.getElementById('exitEdit');
-      const productList = document.getElementById('productList');
-      const imageUpload = document.getElementById('imageUpload');
-      const imageSelect = document.getElementById('imageSelect');
-      let currentCategory = 'all';
+    // Update cart button count
+    function updateCartButton() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartButton.textContent = `Cart (${totalItems})`;
+    }
 
-      // Update cart button count
-      function updateCartButton() {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartButton.textContent = `Cart (${totalItems})`;
+    // Save cart to localStorage
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartButton();
+      renderCart();
+    }
+
+    // Save products to localStorage
+    function saveProducts() {
+      localStorage.setItem('furnitureData', JSON.stringify(furnitureData));
+      hasUnsavedChanges = false;
+      filterProducts();
+      renderProductList();
+    }
+
+    // Save uploaded images to localStorage
+    function saveUploadedImages() {
+      localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
+    }
+
+    // Render uploaded images in select dropdown
+    function renderImageSelect() {
+      imageSelect.innerHTML = '<option value="">Select an image</option>';
+      uploadedImages.forEach((image, index) => {
+        const option = document.createElement('option');
+        option.value = image.url;
+        option.textContent = image.name;
+        imageSelect.appendChild(option);
+      });
+    }
+
+    // Render products
+    function renderProducts(products) {
+      productGrid.innerHTML = '';
+      if (products.length === 0) {
+        noResults.classList.remove('hidden');
+        return;
+      }
+      noResults.classList.add('hidden');
+      products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card bg-white shadow-md rounded-lg overflow-hidden';
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold text-gray-900">${product.name}</h3>
+            <p class="text-gray-600 text-sm mt-1">${product.description}</p>
+            <p class="text-blue-600 font-bold mt-2">KSh ${product.price.toLocaleString()}</p>
+            <button class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
+              ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
+            </button>
+          </div>
+        `;
+        productGrid.appendChild(productCard);
+      });
+    }
+
+    // Render cart
+    function renderCart() {
+      cartItemsContainer.innerHTML = '';
+      checkoutForm.classList.add('hidden');
+      if (cart.length === 0) {
+        emptyCartMessage.classList.remove('hidden');
+        cartTotal.textContent = 'Total: KSh 0';
+        checkoutButton.classList.add('hidden');
+        return;
+      }
+      emptyCartMessage.classList.add('hidden');
+      checkoutButton.classList.remove('hidden');
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'flex items-center bg-white p-4 rounded-lg shadow-md';
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+          <div class="flex-1 ml-4">
+            <h3 class="text-lg font-semibold text-gray-900">${item.name}</h3>
+            <p class="text-gray-600">KSh ${item.price.toLocaleString()}</p>
+            <div class="flex items-center mt-2">
+              <label for="quantity-${index}" class="mr-2 text-gray-600">Quantity:</label>
+              <input type="number" id="quantity-${index}" class="quantity-input border border-gray-300 rounded-lg p-1" value="${item.quantity}" min="1">
+            </div>
+          </div>
+          <button class="remove-item text-red-600 hover:text-red-800 font-medium" data-index="${index}">Remove</button>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+      });
+
+      // Update total
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
+    }
+
+    // Render product list in edit section
+    function renderProductList() {
+      productList.innerHTML = '';
+      furnitureData.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.className = 'flex items-center bg-gray-100 p-4 rounded-lg';
+        productItem.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">
+          <div class="flex-1 ml-4">
+            <h4 class="text-md font-semibold text-gray-900">${product.name}</h4>
+            <p class="text-gray-600 text-sm">${product.description}</p>
+            <p class="text-blue-600 text-sm">KSh ${product.price.toLocaleString()} | ${product.category} | ${product.inStock ? 'In Stock' : 'Out of Stock'}</p>
+          </div>
+          <div class="flex space-x-2">
+            <button class="edit-product bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors" data-id="${product.id}">Edit</button>
+            <button class="delete-product bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors" data-id="${product.id}">Delete</button>
+          </div>
+        `;
+        productList.appendChild(productItem);
+      });
+    }
+
+    // Simulate sending SMS (replace with real SMS API in production)
+    async function sendOrderSMS(to, customerName, orderDetails, total) {
+      const message = `Order Confirmation for ${customerName}:\n${orderDetails}\nTotal: KSh ${total.toLocaleString()}\nThank you for shopping with Furniture Haven Kenya!`;
+      try {
+        console.log(`Sending SMS to ${to}: ${message}`);
+        // Placeholder for real SMS API (e.g., Africa's Talking or Twilio)
+        /*
+        await fetch('https://api.smsprovider.com/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: to,
+            message: message,
+            apiKey: 'YOUR_API_KEY'
+          })
+        });
+        */
+        return true;
+      } catch (error) {
+        console.error(`Error sending SMS to ${to}:`, error);
+        return false;
+      }
+    }
+
+    // Event delegation for cart and edit actions
+    document.addEventListener('click', async (e) => {
+      if (e.target.classList.contains('add-to-cart')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const name = e.target.getAttribute('data-name');
+        const price = parseInt(e.target.getAttribute('data-price'));
+        const image = e.target.getAttribute('data-image');
+        const existingItem = cart.find(item => item.id === id);
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({ id, name, price, image, quantity: 1 });
+        }
+        saveCart();
+        alert('Item added to cart!');
       }
 
-      // Save cart to localStorage
-      function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartButton();
+      if (e.target.classList.contains('remove-item')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        cart.splice(index, 1);
+        saveCart();
+      }
+
+      if (e.target.id === 'cartButton') {
+        mainContent.classList.toggle('hidden');
+        cartPage.classList.toggle('hidden');
+        editSection.classList.add('hidden');
         renderCart();
       }
 
-      // Save products to localStorage
-      function saveProducts() {
-        localStorage.setItem('furnitureData', JSON.stringify(furnitureData));
-        hasUnsavedChanges = false;
-        filterProducts();
-        renderProductList();
+      if (e.target.id === 'backToShop') {
+        mainContent.classList.remove('hidden');
+        cartPage.classList.add('hidden');
+        editSection.classList.add('hidden');
       }
 
-      // Save uploaded images to localStorage
-      function saveUploadedImages() {
-        localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
+      if (e.target.id === 'checkoutButton') {
+        checkoutForm.classList.remove('hidden');
+        cartItemsContainer.classList.add('hidden');
+        checkoutButton.classList.add('hidden');
       }
 
-      // Render uploaded images in select dropdown
-      function renderImageSelect() {
-        imageSelect.innerHTML = '<option value="">Select an image</option>';
-        uploadedImages.forEach((image, index) => {
-          const option = document.createElement('option');
-          option.value = image.url;
-          option.textContent = image.name;
-          imageSelect.appendChild(option);
-        });
-      }
-
-      // Render products
-      function renderProducts(products) {
-        productGrid.innerHTML = '';
-        if (products.length === 0) {
-          noResults.classList.remove('hidden');
+      if (e.target.id === 'submitCheckout') {
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const customerEmail = document.getElementById('customerEmail').value.trim();
+        if (!customerName || !customerPhone) {
+          alert('Please enter both your name and phone number.');
           return;
         }
-        noResults.classList.add('hidden');
-        products.forEach(product => {
-          const productCard = document.createElement('div');
-          productCard.className = 'product-card bg-white shadow-md rounded-lg overflow-hidden';
-          productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold text-gray-900">${product.name}</h3>
-              <p class="text-gray-600 text-sm mt-1">${product.description}</p>
-              <p class="text-blue-600 font-bold mt-2">KSh ${product.price.toLocaleString()}</p>
-              <button class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors w-full add-to-cart" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" ${!product.inStock ? 'disabled' : ''}>
-                ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
-              </button>
-            </div>
-          `;
-          productGrid.appendChild(productCard);
-        });
-      }
-
-      // Render cart
-      function renderCart() {
-        cartItemsContainer.innerHTML = '';
-        checkoutForm.classList.add('hidden');
-        if (cart.length === 0) {
-          emptyCartMessage.classList.remove('hidden');
-          cartTotal.textContent = 'Total: KSh 0';
-          checkoutButton.classList.add('hidden');
+        if (!/^\+?\d{10,12}$/.test(customerPhone)) {
+          alert('Please enter a valid phone number (e.g., +254123456789).');
           return;
         }
-        emptyCartMessage.classList.add('hidden');
-        checkoutButton.classList.remove('hidden');
-        cart.forEach((item, index) => {
-          const cartItem = document.createElement('div');
-          cartItem.className = 'flex items-center bg-white p-4 rounded-lg shadow-md';
-          cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
-            <div class="flex-1 ml-4">
-              <h3 class="text-lg font-semibold text-gray-900">${item.name}</h3>
-              <p class="text-gray-600">KSh ${item.price.toLocaleString()}</p>
-              <div class="flex items-center mt-2">
-                <label for="quantity-${index}" class="mr-2 text-gray-600">Quantity:</label>
-                <input type="number" id="quantity-${index}" class="quantity-input border border-gray-300 rounded-lg p-1" value="${item.quantity}" min="1">
-              </div>
-            </div>
-            <button class="remove-item text-red-600 hover:text-red-800 font-medium" data-index="${index}">Remove</button>
-          `;
-          cartItemsContainer.appendChild(cartItem);
-        });
-
-        // Update total
+        const orderDetails = cart.map(item => `${item.name} (Qty: ${item.quantity}, Price: KSh ${item.price.toLocaleString()})`).join('\n');
         const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        cartTotal.textContent = `Total: KSh ${total.toLocaleString()}`;
-      }
-
-      // Render product list in edit section
-      function renderProductList() {
-        productList.innerHTML = '';
-        furnitureData.forEach(product => {
-          const productItem = document.createElement('div');
-          productItem.className = 'flex items-center bg-gray-100 p-4 rounded-lg';
-          productItem.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">
-            <div class="flex-1 ml-4">
-              <h4 class="text-md font-semibold text-gray-900">${product.name}</h4>
-              <p class="text-gray-600 text-sm">${product.description}</p>
-              <p class="text-blue-600 text-sm">KSh ${product.price.toLocaleString()} | ${product.category} | ${product.inStock ? 'In Stock' : 'Out of Stock'}</p>
-            </div>
-            <div class="flex space-x-2">
-              <button class="edit-product bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors" data-id="${product.id}">Edit</button>
-              <button class="delete-product bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition-colors" data-id="${product.id}">Delete</button>
-            </div>
-          `;
-          productList.appendChild(productItem);
-        });
-      }
-
-      // Simulate sending SMS (replace with real SMS API in production)
-      async function sendOrderSMS(to, customerName, orderDetails, total) {
-        const message = `Order Confirmation for ${customerName}:\n${orderDetails}\nTotal: KSh ${total.toLocaleString()}\nThank you for shopping with Furniture Haven Kenya!`;
-        try {
-          console.log(`Sending SMS to ${to}: ${message}`);
-          // Placeholder for real SMS API (e.g., Africa's Talking or Twilio)
-          /*
-          await fetch('https://api.smsprovider.com/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              to: to,
-              message: message,
-              apiKey: 'YOUR_API_KEY'
-            })
-          });
-          */
-          return true;
-        } catch (error) {
-          console.error(`Error sending SMS to ${to}:`, error);
-          return false;
+        
+        // Send SMS to owner
+        const ownerPhone = '+254746811125';
+        const ownerSuccess = await sendOrderSMS(ownerPhone, customerName, orderDetails, total);
+        
+        // Send SMS to buyer
+        let buyerSuccess = true;
+        if (customerPhone) {
+          buyerSuccess = await sendOrderSMS(customerPhone, customerName, orderDetails, total);
         }
-      }
 
-      // Event delegation for cart and edit actions
-      document.addEventListener('click', async (e) => {
-        if (e.target.classList.contains('add-to-cart')) {
-          const id = parseInt(e.target.getAttribute('data-id'));
-          const name = e.target.getAttribute('data-name');
-          const price = parseInt(e.target.getAttribute('data-price'));
-          const image = e.target.getAttribute('data-image');
-          const existingItem = cart.find(item => item.id === id);
-          if (existingItem) {
-            existingItem.quantity += 1;
-          } else {
-            cart.push({ id, name, price, image, quantity: 1 });
-          }
+        if (ownerSuccess && buyerSuccess) {
+          alert('Order placed successfully! Confirmation sent to you and the store owner.');
+          cart = [];
           saveCart();
-          alert('Item added to cart!');
-        }
-
-        if (e.target.classList.contains('remove-item')) {
-          const index = parseInt(e.target.getAttribute('data-index'));
-          cart.splice(index, 1);
-          saveCart();
-        }
-
-        if (e.target.id === 'cartButton') {
-          mainContent.classList.toggle('hidden');
-          cartPage.classList.toggle('hidden');
-          editSection.classList.add('hidden');
-          renderCart();
-        }
-
-        if (e.target.id === 'backToShop') {
+          checkoutForm.classList.add('hidden');
+          cartItemsContainer.classList.remove('hidden');
           mainContent.classList.remove('hidden');
           cartPage.classList.add('hidden');
-          editSection.classList.add('hidden');
+        } else {
+          alert('Failed to send order confirmation. Please try again or contact support.');
         }
+      }
 
-        if (e.target.id === 'checkoutButton') {
-          checkoutForm.classList.remove('hidden');
-          cartItemsContainer.classList.add('hidden');
-          checkoutButton.classList.add('hidden');
-        }
+      if (e.target.classList.contains('category-filter')) {
+        currentCategory = e.target.getAttribute('data-category');
+        document.querySelectorAll('.category-filter').forEach(btn => btn.classList.remove('bg-blue-600', 'text-white'));
+        e.target.classList.add('bg-blue-600', 'text-white');
+        filterProducts();
+      }
 
-        if (e.target.id === 'submitCheckout') {
-          const customerName = document.getElementById('customerName').value.trim();
-          const customerPhone = document.getElementById('customerPhone').value.trim();
-          const customerEmail = document.getElementById('customerEmail').value.trim();
-          if (!customerName || !customerPhone) {
-            alert('Please enter both your name and phone number.');
-            return;
-          }
-          if (!/^\+?\d{10,12}$/.test(customerPhone)) {
-            alert('Please enter a valid phone number (e.g., +254123456789).');
-            return;
-          }
-          const orderDetails = cart.map(item => `${item.name} (Qty: ${item.quantity}, Price: KSh ${item.price.toLocaleString()})`).join('\n');
-          const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-          
-          // Send SMS to owner
-          const ownerPhone = '+254746811125';
-          const ownerSuccess = await sendOrderSMS(ownerPhone, customerName, orderDetails, total);
-          
-          // Send SMS to buyer
-          let buyerSuccess = true;
-          if (customerPhone) {
-            buyerSuccess = await sendOrderSMS(customerPhone, customerName, orderDetails, total);
-          }
+      if (e.target.id === 'editButton') {
+        mainContent.classList.add('hidden');
+        cartPage.classList.add('hidden');
+        editSection.classList.remove('hidden');
+        renderImageSelect();
+      }
 
-          if (ownerSuccess && buyerSuccess) {
-            alert('Order placed successfully! Confirmation sent to you and the store owner.');
-            cart = [];
-            saveCart();
-            checkoutForm.classList.add('hidden');
-            cartItemsContainer.classList.remove('hidden');
-            mainContent.classList.remove('hidden');
-            cartPage.classList.add('hidden');
-          } else {
-            alert('Failed to send order confirmation. Please try again or contact support.');
-          }
-        }
-
-        if (e.target.classList.contains('category-filter')) {
-          currentCategory = e.target.getAttribute('data-category');
-          document.querySelectorAll('.category-filter').forEach(btn => btn.classList.remove('bg-blue-600', 'text-white'));
-          e.target.classList.add('bg-blue-600', 'text-white');
-          filterProducts();
-        }
-
-        if (e.target.id === 'editButton') {
-          mainContent.classList.add('hidden');
-          cartPage.classList.add('hidden');
-          editSection.classList.remove('hidden');
-          renderImageSelect();
-        }
-
-        if (e.target.id === 'enterEditMode') {
-          const editPassword = document.getElementById('editPassword').value.trim();
-          if (editPassword.toLowerCase() === 'edit') {
-            editAuthForm.classList.add('hidden');
-            editForm.classList.remove('hidden');
-            document.getElementById('editPassword').value = '';
-            renderProductList();
-            renderImageSelect();
-            document.getElementById('saveProduct').textContent = 'Save Product';
-            editingProductId = null;
-            document.getElementById('productInStock').checked = true;
-          } else {
-            alert('Please enter the correct password.');
-          }
-        }
-
-        if (e.target.id === 'backFromEditAuth') {
-          editSection.classList.add('hidden');
-          mainContent.classList.remove('hidden');
+      if (e.target.id === 'enterEditMode') {
+        const editPassword = document.getElementById('editPassword').value.trim();
+        if (editPassword.toLowerCase() === 'edit') {
+          editAuthForm.classList.add('hidden');
+          editForm.classList.remove('hidden');
           document.getElementById('editPassword').value = '';
-        }
-
-        if (e.target.id === 'saveProduct') {
-          const name = document.getElementById('productName').value.trim();
-          const description = document.getElementById('productDescription').value.trim();
-          const price = parseInt(document.getElementById('productPrice').value);
-          const image = document.getElementById('productImage').value.trim() || document.getElementById('imageSelect').value;
-          const category = document.getElementById('productCategory').value;
-          const inStock = document.getElementById('productInStock').checked;
-
-          if (!name || !description || !price || !image || !category) {
-            alert('Please fill in all fields or select an image.');
-            return;
-          }
-
-          if (!image.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i) && !image.startsWith('blob:')) {
-            alert('Please enter a valid image URL ending in .jpg, .jpeg, .png, .gif, or select an uploaded image.');
-            return;
-          }
-
-          if (editingProductId) {
-            const productIndex = furnitureData.findIndex(p => p.id === editingProductId);
-            furnitureData[productIndex] = { id: editingProductId, name, description, price, image, inStock, category };
-          } else {
-            const newId = furnitureData.length ? Math.max(...furnitureData.map(p => p.id)) + 1 : 1;
-            furnitureData.push({ id: newId, name, description, price, image, inStock, category });
-          }
-
-          saveProducts();
-          alert(editingProductId ? 'Product updated successfully!' : 'Product added successfully!');
-          document.getElementById('productName').value = '';
-          document.getElementById('productDescription').value = '';
-          document.getElementById('productPrice').value = '';
-          document.getElementById('productImage').value = '';
-          document.getElementById('imageSelect').value = '';
-          document.getElementById('imageUpload').value = '';
-          document.getElementById('productCategory').value = 'sofas';
-          document.getElementById('productInStock').checked = true;
-          document.getElementById('saveProduct').textContent = 'Save Product';
-          editingProductId = null;
-        }
-
-        if (e.target.classList.contains('edit-product')) {
-          const id = parseInt(e.target.getAttribute('data-id'));
-          const product = furnitureData.find(p => p.id === id);
-          document.getElementById('productName').value = product.name;
-          document.getElementById('productDescription').value = product.description;
-          document.getElementById('productPrice').value = product.price;
-          document.getElementById('productImage').value = product.image;
-          document.getElementById('imageSelect').value = product.image;
-          document.getElementById('productCategory').value = product.category;
-          document.getElementById('productInStock').checked = product.inStock;
-          document.getElementById('saveProduct').textContent = 'Update Product';
-          editingProductId = id;
-          hasUnsavedChanges = true;
-          editForm.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        if (e.target.classList.contains('delete-product')) {
-          const id = parseInt(e.target.getAttribute('data-id'));
-          if (confirm(`Are you sure you want to delete ${furnitureData.find(p => p.id === id).name}?`)) {
-            furnitureData = furnitureData.filter(p => p.id !== id);
-            saveProducts();
-            alert('Product deleted successfully!');
-          }
-        }
-
-        if (e.target.id === 'exitEdit') {
-          if (hasUnsavedChanges) {
-            if (!confirm('You have unsaved changes. Are you sure you want to exit without saving?')) {
-              return;
-            }
-          }
-          editSection.classList.add('hidden');
-          mainContent.classList.remove('hidden');
-          editAuthForm.classList.remove('hidden');
-          editForm.classList.add('hidden');
-          document.getElementById('productName').value = '';
-          document.getElementById('productDescription').value = '';
-          document.getElementById('productPrice').value = '';
-          document.getElementById('productImage').value = '';
-          document.getElementById('imageSelect').value = '';
-          document.getElementById('imageUpload').value = '';
-          document.getElementById('productCategory').value = 'sofas';
-          document.getElementById('productInStock').checked = true;
-          document.getElementById('saveProduct').textContent = 'Save Product';
-          editingProductId = null;
-          hasUnsavedChanges = false;
-        }
-      });
-
-      // Quantity and edit form input change
-      document.addEventListener('change', (e) => {
-        if (e.target.classList.contains('quantity-input')) {
-          const index = parseInt(e.target.id.split('-')[1]);
-          const newQuantity = parseInt(e.target.value);
-          if (newQuantity >= 1) {
-            cart[index].quantity = newQuantity;
-            saveCart();
-          } else {
-            e.target.value = cart[index].quantity;
-          }
-        }
-
-        if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory' || e.target.id === 'productInStock' || e.target.id === 'imageSelect') {
-          hasUnsavedChanges = true;
-        }
-
-        if (e.target.id === 'imageUpload' && e.target.files.length > 0) {
-          const file = e.target.files[0];
-          if (!file.type.match(/^image\/(jpg|jpeg|png|gif)$/)) {
-            alert('Please upload a valid image file (.jpg, .jpeg, .png, .gif).');
-            e.target.value = '';
-            return;
-          }
-          const url = URL.createObjectURL(file);
-          uploadedImages.push({ name: file.name, url });
-          saveUploadedImages();
+          renderProductList();
           renderImageSelect();
-          document.getElementById('imageSelect').value = url;
-          document.getElementById('productImage').value = url;
-          hasUnsavedChanges = true;
+          document.getElementById('saveProduct').textContent = 'Save Product';
+          editingProductId = null;
+          document.getElementById('productInStock').checked = true;
+        } else {
+          alert('Please enter the correct password.');
         }
-
-        if (e.target.id === 'imageSelect' && e.target.value) {
-          document.getElementById('productImage').value = e.target.value;
-          hasUnsavedChanges = true;
-        }
-      });
-
-      // Search and filter functionality
-      const searchInput = document.getElementById('searchInput');
-      searchInput.addEventListener('input', filterProducts);
-
-      function filterProducts() {
-        const searchTerm = searchInput.value.toLowerCase();
-        let filteredProducts = furnitureData;
-        if (currentCategory !== 'all') {
-          filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
-        }
-        filteredProducts = filteredProducts.filter(product =>
-          product.name.toLowerCase().includes(searchTerm) ||
-          product.description.toLowerCase().includes(searchTerm)
-        );
-        renderProducts(filteredProducts);
       }
 
-      // Hamburger menu toggle
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.querySelector('.nav-menu');
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-      });
+      if (e.target.id === 'backFromEditAuth') {
+        editSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        document.getElementById('editPassword').value = '';
+      }
 
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-          if (navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
+      if (e.target.id === 'saveProduct') {
+        const name = document.getElementById('productName').value.trim();
+        const description = document.getElementById('productDescription').value.trim();
+        const price = parseInt(document.getElementById('productPrice').value);
+        const image = document.getElementById('productImage').value.trim() || document.getElementById('imageSelect').value;
+        const category = document.getElementById('productCategory').value;
+        const inStock = document.getElementById('productInStock').checked;
+
+        if (!name || !description || !price || !image || !category) {
+          alert('Please fill in all fields or select an image.');
+          return;
+        }
+
+        if (!image.match(/^https?:\/\/.*\.(jpg|jpeg|png|gif)$/i) && !image.startsWith('blob:')) {
+          alert('Please enter a valid image URL ending in .jpg, .jpeg, .png, .gif, or select an uploaded image.');
+          return;
+        }
+
+        if (editingProductId) {
+          const productIndex = furnitureData.findIndex(p => p.id === editingProductId);
+          furnitureData[productIndex] = { id: editingProductId, name, description, price, image, inStock, category };
+        } else {
+          const newId = furnitureData.length ? Math.max(...furnitureData.map(p => p.id)) + 1 : 1;
+          furnitureData.push({ id: newId, name, description, price, image, inStock, category });
+        }
+
+        saveProducts();
+        alert(editingProductId ? 'Product updated successfully!' : 'Product added successfully!');
+        document.getElementById('productName').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productImage').value = '';
+        document.getElementById('imageSelect').value = '';
+        document.getElementById('imageUpload').value = '';
+        document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('productInStock').checked = true;
+        document.getElementById('saveProduct').textContent = 'Save Product';
+        editingProductId = null;
+      }
+
+      if (e.target.classList.contains('edit-product')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const product = furnitureData.find(p => p.id === id);
+        document.getElementById('productName').value = product.name;
+        document.getElementById('productDescription').value = product.description;
+        document.getElementById('productPrice').value = product.price;
+        document.getElementById('productImage').value = product.image;
+        document.getElementById('imageSelect').value = product.image;
+        document.getElementById('productCategory').value = product.category;
+        document.getElementById('productInStock').checked = product.inStock;
+        document.getElementById('saveProduct').textContent = 'Update Product';
+        editingProductId = id;
+        hasUnsavedChanges = true;
+        editForm.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      if (e.target.classList.contains('delete-product')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        if (confirm(`Are you sure you want to delete ${furnitureData.find(p => p.id === id).name}?`)) {
+          furnitureData = furnitureData.filter(p => p.id !== id);
+          saveProducts();
+          alert('Product deleted successfully!');
+        }
+      }
+
+      if (e.target.id === 'exitEdit') {
+        if (hasUnsavedChanges) {
+          if (!confirm('You have unsaved changes. Are you sure you want to exit without saving?')) {
+            return;
           }
-        });
-      });
+        }
+        editSection.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        editAuthForm.classList.remove('hidden');
+        editForm.classList.add('hidden');
+        document.getElementById('productName').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productImage').value = '';
+        document.getElementById('imageSelect').value = '';
+        document.getElementById('imageUpload').value = '';
+        document.getElementById('productCategory').value = 'sofas';
+        document.getElementById('productInStock').checked = true;
+        document.getElementById('saveProduct').textContent = 'Save Product';
+        editingProductId = null;
+        hasUnsavedChanges = false;
+      }
+    });
 
-      // Load products from localStorage if available
-      const storedProducts = localStorage.getItem('furnitureData');
-      if (storedProducts) {
-        furnitureData = JSON.parse(storedProducts);
+    // Quantity and edit form input change
+    document.addEventListener('change', (e) => {
+      if (e.target.classList.contains('quantity-input')) {
+        const index = parseInt(e.target.id.split('-')[1]);
+        const newQuantity = parseInt(e.target.value);
+        if (newQuantity >= 1) {
+          cart[index].quantity = newQuantity;
+          saveCart();
+        } else {
+          e.target.value = cart[index].quantity;
+        }
       }
 
-      // Initial render
-      renderProducts(furnitureData);
-      updateCartButton();
-      renderImageSelect();
-    };
+      if (e.target.id === 'productName' || e.target.id === 'productDescription' || e.target.id === 'productPrice' || e.target.id === 'productImage' || e.target.id === 'productCategory' || e.target.id === 'productInStock' || e.target.id === 'imageSelect') {
+        hasUnsavedChanges = true;
+      }
+
+      if (e.target.id === 'imageUpload' && e.target.files.length > 0) {
+        const file = e.target.files[0];
+        if (!file.type.match(/^image\/(jpg|jpeg|png|gif)$/)) {
+          alert('Please upload a valid image file (.jpg, .jpeg, .png, .gif).');
+          e.target.value = '';
+          return;
+        }
+        const url = URL.createObjectURL(file);
+        uploadedImages.push({ name: file.name, url });
+        saveUploadedImages();
+        renderImageSelect();
+        document.getElementById('imageSelect').value = url;
+        document.getElementById('productImage').value = url;
+        hasUnsavedChanges = true;
+      }
+
+      if (e.target.id === 'imageSelect' && e.target.value) {
+        document.getElementById('productImage').value = e.target.value;
+        hasUnsavedChanges = true;
+      }
+    });
+
+    // Search and filter functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', filterProducts);
+
+    function filterProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      let filteredProducts = furnitureData;
+      if (currentCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(product => product.category === currentCategory);
+      }
+      filteredProducts = filteredProducts.filter(product =>
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm)
+      );
+      renderProducts(filteredProducts);
+    }
+
+    // Hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        if (navMenu.classList.contains('active')) {
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+
+    // Load products from localStorage if available
+    const storedProducts = localStorage.getItem('furnitureData');
+    if (storedProducts) {
+      furnitureData = JSON.parse(storedProducts);
+    }
+
+    // Initial render
+    renderProducts(furnitureData);
+    updateCartButton();
+    renderImageSelect();
   </script>
 </body>
 </html>
+
+here is the live link
+https://brightonchege.github.io/kev-furniture/
+im editing the website from github since the site is hosted there so list ways that would be easy to createe a databse for the website to enable the owwner to post and edit and delete products and changes an be seen by consumers
+list an e shall pick one
