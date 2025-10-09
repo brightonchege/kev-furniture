@@ -472,6 +472,20 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        .custom-form input, .custom-form select, .custom-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .custom-form label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
         @media (min-width: 901px) {
             .services-grid {
                 grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -630,20 +644,6 @@
             50% { transform: rotate(0deg); }
             100% { transform: rotate(0deg); }
         }
-        .custom-form input, .custom-form select, .custom-form textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        .custom-form label {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -654,6 +654,7 @@
         function Navbar() {
             const [menuOpen, setMenuOpen] = useState(false);
             const [activeSubMenu, setActiveSubMenu] = useState(null);
+            const [showCustomOrder, setShowCustomOrder] = useState(false);
 
             const toggleMenu = () => {
                 setMenuOpen(!menuOpen);
@@ -664,6 +665,11 @@
 
             const toggleSubMenu = (index) => {
                 setActiveSubMenu(activeSubMenu === index ? null : index);
+            };
+
+            const handleCustomOrderClick = () => {
+                setShowCustomOrder(true);
+                setMenuOpen(false);
             };
 
             useEffect(() => {
@@ -735,7 +741,7 @@
                                 <a href="cardblog.html">Blog</a>
                             </li>
                             <li><a href="#contacts">Contacts</a></li>
-                            <li><a href="#custom-order">Book Custom Card</a></li>
+                            <li><a href="#" onClick={handleCustomOrderClick}>Book Custom Card</a></li>
                         </ul>
                         <ul className="lte-navbar-icons-add hidden md:flex">
                             <li><a href="#products" className="lte-btn">Shop Now</a></li>
@@ -767,19 +773,20 @@
                                 </ul>
                             </li>
                             <li className="menu-item">
-                                <a href="#blog">Blog</a>
+                                <a href="cardblog.html">Blog</a>
                             </li>
                             <li className="menu-item">
                                 <a href="#contacts">Contacts</a>
                             </li>
                             <li className="menu-item">
-                                <a href="#custom-order">Book Custom Card</a>
+                                <a href="#" onClick={handleCustomOrderClick}>Book Custom Card</a>
                             </li>
                             <li className="menu-item">
                                 <a href="#products" className="lte-btn w-full text-center">Shop Now</a>
                             </li>
                         </ul>
                     </div>
+                    {showCustomOrder && <CustomOrderPopup onClose={() => setShowCustomOrder(false)} />}
                 </nav>
             );
         }
