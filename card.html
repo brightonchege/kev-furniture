@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank Ewe Very Much</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff8f1 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><path d="M20,75 C20,110 75,130 75,130 C75,130 130,110 130,75 C130,40 75,20 75,20 C75,20 20,40 20,75 Z" fill="none" stroke="%23ff6f61" stroke-width="2" opacity="0.2" /><path d="M30,75 C30,100 75,120 75,120 C75,120 120,100 120,75 C120,50 75,30 75,30 C75,30 30,50 30,75 Z" fill="none" stroke="%23ffd166" stroke-width="2" opacity="0.2" /><path d="M40,75 C40,95 75,110 75,110 C75,110 110,95 110,75 C110,55 75,40 75,40 C75,40 40,55 40,75 Z" fill="none" stroke="%234ecdc4" stroke-width="2" opacity="0.2" /><path d="M50,75 C50,90 75,100 75,100 C75,100 100,90 100,75 C100,60 75,50 75,50 C75,50 50,60 50,75 Z" fill="none" stroke="%23a78bfa" stroke-width="2" opacity="0.2" /><path d="M60,75 C60,85 75,90 75,90 C75,90 90,85 90,75 C90,65 75,60 75,60 C75,60 60,65 60,75 Z" fill="none" stroke="%23f472b6" stroke-width="2" opacity="0.2" /></svg>') repeat;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .lte-navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        .lte-logo img {
+            max-height: 60px;
+            transition: transform 0.3s ease;
+        }
+        .lte-logo img:hover {
+            transform: scale(1.1);
+        }
+        .lte-ul-nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .lte-ul-nav li {
+            position: relative;
+        }
+        .lte-ul-nav a {
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .lte-ul-nav a:hover {
+            color: #ff6f61;
+        }
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        .menu-item-has-children:hover .sub-menu {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .sub-menu li {
+            padding: 0.5rem 0;
+        }
+        .sub-menu a {
+            color: #333;
+            font-size: 1rem;
+            display: block;
+            padding: 0.5rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .sub-menu a:hover {
+            color: #ff6f61;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .lte-btn {
+            background-color: #ff6f61;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .lte-btn:hover {
+            background-color: #e55a50;
+            transform: scale(1.05);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            padding: 0.5rem;
+        }
+        .hamburger span {
+            width: 30px;
+            height: 4px;
+            background-color: #ff6f61;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        .mobile-menu {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            overflow-y: auto;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            display: block;
+            transform: translateY(0);
+        }
+        .mobile-menu .lte-ul-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .mobile-menu .lte-ul-nav li {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        .mobile-menu .lte-ul-nav a {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+        }
+        .mobile-menu .sub-menu {
+            position: static;
+            box-shadow: none;
+            padding: 1rem 1.5rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .mobile-menu .sub-menu a {
+            font-size: 1rem;
+        }
+        .mobile-menu .menu-item-has-children > a::after {
+            content: '▼';
+            display: inline-block;
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu .menu-item-has-children.active > a::after {
+            transform: rotate(180deg);
+        }
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #ff6f61;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .close-menu:hover {
+            background-color: #e55a50;
+        }
+        .section-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-shadow {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+        }
+        .card-shadow:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background-color: #ff6f61;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #e55a50;
+            transform: scale(1.05);
+        }
+        .highlight-text {
+            color: #ff6f61;
+        }
+        .hero-bg {
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .animate-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .pricing-card {
+            opacity: 0;
+            transform: scale(0.9);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card:nth-child(1) {
+            border-color: #ff6f61;
+        }
+        .pricing-card:nth-child(2) {
+            border-color: #ffd166;
+        }
+        .pricing-card:nth-child(3) {
+            border-color: #4ecdc4;
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            border-color: #ff9a8b;
+        }
+        .pricing-card h4 {
+            color: #333;
+            transition: color 0.3s ease;
+        }
+        .pricing-card:hover h4 {
+            color: #ff6f61;
+        }
+        .pricing-card p {
+            color: #6b7280;
+        }
+        .payment-option {
+            transition: background-color 0.3s ease;
+        }
+        .payment-option:hover {
+            background-color: #e0e0e0;
+        }
+        .lte-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6f61;
+            margin: 0.5rem 0;
+        }
+        .lte-tariff-item {
+            background: #fefefe url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><path d="M20,75 C20,110 75,130 75,130 C75,130 130,110 130,75 C130,40 75,20 75,20 C75,20 20,40 20,75 Z" fill="none" stroke="%23ff6f61" stroke-width="2" opacity="0.2" /><path d="M30,75 C30,100 75,120 75,120 C75,120 120,100 120,75 C120,50 75,30 75,30 C75,30 30,50 30,75 Z" fill="none" stroke="%23ffd166" stroke-width="2" opacity="0.2" /><path d="M40,75 C40,95 75,110 75,110 C75,110 110,95 110,75 C110,55 75,40 75,40 C75,40 40,55 40,75 Z" fill="none" stroke="%234ecdc4" stroke-width="2" opacity="0.2" /><path d="M50,75 C50,90 75,100 75,100 C75,100 100,90 100,75 C100,60 75,50 75,50 C75,50 50,60 50,75 Z" fill="none" stroke="%23a78bfa" stroke-width="2" opacity="0.2" /><path d="M60,75 C60,85 75,90 75,90 C75,90 90,85 90,75 C90,65 75,60 75,60 C75,60 60,65 60,75 Z" fill="none" stroke="%23f472b6" stroke-width="2" opacity="0.2" /></svg>') repeat;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            max-width: 200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 300px;
+        }
+        .lte-tariff-item:nth-child(1) { border: 2px solid #ff6f61; }
+        .lte-tariff-item:nth-child(2) { border: 2px solid #ffd166; }
+        .lte-tariff-item:nth-child(3) { border: 2px solid #a78bfa; }
+        .lte-tariff-item:nth-child(4) { border: 2px solid #f472b6; }
+        .lte-tariff-item:nth-child(5) { border: 2px solid #4ecdc4; }
+        .lte-tariff-item:nth-child(6) { border: 2px solid #ff9a8b; }
+        .lte-tariff-item:nth-child(7) { border: 2px solid #ff6f61; }
+        .lte-tariff-item:nth-child(8) { border: 2px solid #ffd166; }
+        .lte-tariff-item:nth-child(9) { border: 2px solid #a78bfa; }
+        .lte-tariff-item:nth-child(10) { border: 2px solid #f472b6; }
+        .lte-tariff-item:nth-child(11) { border: 2px solid #4ecdc4; }
+        .lte-tariff-item:nth-child(12) { border: 2px solid #ff9a8b; }
+        .lte-tariff-item:nth-child(13) { border: 2px solid #ff6f61; }
+        .lte-tariff-item:nth-child(14) { border: 2px solid #ffd166; }
+        .lte-tariff-item:nth-child(15) { border: 2px solid #a78bfa; }
+        .lte-tariff-item:nth-child(16) { border: 2px solid #f472b6; }
+        .lte-tariff-item:nth-child(17) { border: 2px solid #4ecdc4; }
+        .lte-tariff-item:nth-child(18) { border: 2px solid #ff9a8b; }
+        .lte-tariff-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+            border-color: #4ecdc4;
+        }
+        .lte-tariff-item h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0.5rem 0;
+        }
+        .lte-tariff-item h6 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .lte-tariff-item:nth-child(1) h6 { color: #ff6f61; }
+        .lte-tariff-item:nth-child(2) h6 { color: #ffd166; }
+        .lte-tariff-item:nth-child(3) h6 { color: #a78bfa; }
+        .lte-tariff-item:nth-child(4) h6 { color: #f472b6; }
+        .lte-tariff-item:nth-child(5) h6 { color: #4ecdc4; }
+        .lte-tariff-item:nth-child(6) h6 { color: #ff9a8b; }
+        .lte-tariff-item:nth-child(7) h6 { color: #ff6f61; }
+        .lte-tariff-item:nth-child(8) h6 { color: #ffd166; }
+        .lte-tariff-item:nth-child(9) h6 { color: #a78bfa; }
+        .lte-tariff-item:nth-child(10) h6 { color: #f472b6; }
+        .lte-tariff-item:nth-child(11) h6 { color: #4ecdc4; }
+        .lte-tariff-item:nth-child(12) h6 { color: #ff9a8b; }
+        .lte-tariff-item:nth-child(13) h6 { color: #ff6f61; }
+        .lte-tariff-item:nth-child(14) h6 { color: #ffd166; }
+        .lte-tariff-item:nth-child(15) h6 { color: #a78bfa; }
+        .lte-tariff-item:nth-child(16) h6 { color: #f472b6; }
+        .lte-tariff-item:nth-child(17) h6 { color: #4ecdc4; }
+        .lte-tariff-item:nth-child(18) h6 { color: #ff9a8b; }
+        .lte-tariff-list {
+            margin-bottom: 0.5rem;
+            flex-grow: 1;
+            width: 100%;
+        }
+        .lte-tariff-list li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+            color: #6b7280;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ul-yes:before {
+            content: '\2714';
+            color: #ff6f61;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+        }
+        footer {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .popup-content {
+            background: #fefefe url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><path d="M20,75 C20,110 75,130 75,130 C75,130 130,110 130,75 C130,40 75,20 75,20 C75,20 20,40 20,75 Z" fill="none" stroke="%23ff6f61" stroke-width="2" opacity="0.2" /><path d="M30,75 C30,100 75,120 75,120 C75,120 120,100 120,75 C120,50 75,30 75,30 C75,30 30,50 30,75 Z" fill="none" stroke="%23ffd166" stroke-width="2" opacity="0.2" /><path d="M40,75 C40,95 75,110 75,110 C75,110 110,95 110,75 C110,55 75,40 75,40 C75,40 40,55 40,75 Z" fill="none" stroke="%234ecdc4" stroke-width="2" opacity="0.2" /><path d="M50,75 C50,90 75,100 75,100 C75,100 100,90 100,75 C100,60 75,50 75,50 C75,50 50,60 50,75 Z" fill="none" stroke="%23a78bfa" stroke-width="2" opacity="0.2" /><path d="M60,75 C60,85 75,90 75,90 C75,90 90,85 90,75 C90,65 75,60 75,60 C75,60 60,65 60,75 Z" fill="none" stroke="%23f472b6" stroke-width="2" opacity="0.2" /></svg>') repeat;
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            border: 2px solid #4ecdc4;
+        }
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+        }
+        .popup-content img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 2px solid #ffd166;
+        }
+        .popup-content h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        .popup-content p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        .popup-content .lte-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6f61;
+            margin-bottom: 1rem;
+        }
+        .popup-content .btn-primary {
+            margin-top: 1rem;
+            background-color: #4ecdc4;
+        }
+        .popup-content .btn-primary:hover {
+            background-color: #45b7aa;
+        }
+        .popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6f61;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .popup-close:hover {
+            background-color: #e55a50;
+        }
+        .checkout-button {
+            background-color: #a78bfa;
+            color: white;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        .checkout-button:hover {
+            background-color: #906ee0;
+            transform: scale(1.05);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-gap: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (min-width: 901px) {
+            .services-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-gap: 0.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                grid-gap: 0.5rem;
+            }
+        }
+        @media (max-width: 1024px) {
+            .lte-ul-nav {
+                gap: 1rem;
+            }
+            .lte-ul-nav a {
+                font-size: 1rem;
+            }
+            .lte-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            .lte-tariff-item {
+                max-width: 180px;
+            }
+            .lte-tariff-item h5 {
+                font-size: 1.2rem;
+            }
+            .lte-tariff-item h6 {
+                font-size: 1.4rem;
+            }
+            .popup-content {
+                max-width: 500px;
+            }
+            .popup-content img {
+                max-width: 300px;
+            }
+        }
+        @media (max-width: 768px) {
+            .lte-ul-nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu.active .lte-ul-nav {
+                display: flex;
+            }
+            .lte-tariff-item {
+                max-width: 160px;
+                padding: 0.8rem;
+            }
+            .hero-bg {
+                padding: 2rem 1rem;
+            }
+            .hero-bg h2 {
+                font-size: 2.5rem;
+            }
+            .hero-bg p {
+                font-size: 1.25rem;
+            }
+            .lte-heading h2 {
+                font-size: 2.5rem;
+            }
+            .popup-content {
+                max-width: 90%;
+            }
+            .popup-content img {
+                max-width: 250px;
+            }
+            .checkout-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .lte-logo img {
+                max-height: 40px;
+            }
+            .hero-bg h2 {
+                font-size: 2rem;
+            }
+            .hero-bg p {
+                font-size: 1rem;
+            }
+            .pricing-card {
+                padding: 0.8rem;
+            }
+            .lte-tariff-item {
+                max-width: 100%;
+                min-height: 280px;
+            }
+            .lte-tariff-item h5 {
+                font-size: 1.1rem;
+            }
+            .lte-tariff-item h6 {
+                font-size: 1.3rem;
+            }
+            .lte-tariff-list li {
+                font-size: 0.8rem;
+            }
+            .btn-primary {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .lte-heading h2 {
+                font-size: 2rem;
+            }
+            .mobile-menu .lte-ul-nav a {
+                font-size: 1.1rem;
+            }
+            .mobile-menu .sub-menu a {
+                font-size: 0.9rem;
+            }
+            .popup-content {
+                padding: 1rem;
+            }
+            .popup-content h3 {
+                font-size: 1.5rem;
+            }
+            .popup-content p {
+                font-size: 0.9rem;
+            }
+            .popup-content .lte-price {
+                font-size: 1.2rem;
+            }
+            .checkout-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(2deg); }
+            20% { transform: rotate(-2deg); }
+            30% { transform: rotate(1deg); }
+            40% { transform: rotate(-1deg); }
+            50% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .custom-form input, .custom-form select, .custom-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .custom-form label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function Navbar() {
+            const [menuOpen, setMenuOpen] = useState(false);
+            const [activeSubMenu, setActiveSubMenu] = useState(null);
+
+            const toggleMenu = () => {
+                setMenuOpen(!menuOpen);
+                if (!menuOpen) {
+                    setActiveSubMenu(null);
+                }
+            };
+
+            const toggleSubMenu = (index) => {
+                setActiveSubMenu(activeSubMenu === index ? null : index);
+            };
+
+            useEffect(() => {
+                gsap.from('.lte-ul-nav li', {
+                    opacity: 0,
+                    y: -20,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    delay: 0.3,
+                });
+                gsap.from('.lte-logo img', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.8,
+                    ease: 'elastic.out(1, 0.5)',
+                });
+                gsap.from('.mobile-menu .lte-ul-nav li', {
+                    opacity: 0,
+                    y: -20,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    delay: 0.2,
+                    scrollTrigger: {
+                        trigger: '.mobile-menu',
+                        start: 'top top',
+                    },
+                });
+            }, []);
+
+            return (
+                <nav className="fixed w-full lte-navbar text-gray-800 py-4 z-10 border-b border-gray-200">
+                    <div className="container mx-auto px-4 flex justify-between items-center">
+                        <div className="lte-navbar-logo">
+                            <a className="lte-logo" href="#home">
+                                <img src="https://via.placeholder.com/150x60?text=Thank+Ewe+Very+Much" alt="Thank Ewe Very Much" />
+                            </a>
+                        </div>
+                        <div className={`hamburger md:hidden ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <ul id="menu-main-menu" className={`lte-ul-nav hidden md:flex`}>
+                            <li className="menu-item menu-item-has-children">
+                                <a href="#home">Home</a>
+                                <ul className="sub-menu">
+                                    <li><a href="#home">Main Home</a></li>
+                                    <li><a href="#products">Featured Cards</a></li>
+                                </ul>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#about">About Us</a>
+                            </li>
+                            <li className="menu-item menu-item-has-children">
+                                <a href="#products">Shop</a>
+                                <ul className="sub-menu">
+                                    <li><a href="#products">All Cards</a></li>
+                                    <li><a href="#products">Birthday Cards</a></li>
+                                    <li><a href="#products">Thank You Cards</a></li>
+                                    <li><a href="#products">Special Occasion Cards</a></li>
+                                    <li><a href="#custom-order">Custom Orders</a></li>
+                                    <li><a href="#cart">Cart</a></li>
+                                    <li><a href="#checkout">Checkout</a></li>
+                                </ul>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#blog">Blog</a>
+                            </li>
+                            <li><a href="#contacts">Contacts</a></li>
+                            <li><a href="#custom-order">Book Custom Card</a></li>
+                        </ul>
+                        <ul className="lte-navbar-icons-add hidden md:flex">
+                            <li><a href="#products" className="lte-btn">Shop Now</a></li>
+                        </ul>
+                    </div>
+                    <div className={`mobile-menu ${menuOpen ? 'active' : ''}`}>
+                        <div className="close-menu" onClick={toggleMenu}>×</div>
+                        <ul id="menu-main-menu" className="lte-ul-nav">
+                            <li className={`menu-item menu-item-has-children ${activeSubMenu === 0 ? 'active' : ''}`}>
+                                <a href="#home" onClick={() => toggleSubMenu(0)}>Home</a>
+                                <ul className="sub-menu" style={{ display: activeSubMenu === 0 ? 'block' : 'none' }}>
+                                    <li><a href="#home">Main Home</a></li>
+                                    <li><a href="#products">Featured Cards</a></li>
+                                </ul>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#about">About Us</a>
+                            </li>
+                            <li className={`menu-item menu-item-has-children ${activeSubMenu === 1 ? 'active' : ''}`}>
+                                <a href="#products" onClick={() => toggleSubMenu(1)}>Shop</a>
+                                <ul className="sub-menu" style={{ display: activeSubMenu === 1 ? 'block' : 'none' }}>
+                                    <li><a href="#products">All Cards</a></li>
+                                    <li><a href="#products">Birthday Cards</a></li>
+                                    <li><a href="#products">Thank You Cards</a></li>
+                                    <li><a href="#products">Special Occasion Cards</a></li>
+                                    <li><a href="#custom-order">Custom Orders</a></li>
+                                    <li><a href="#cart">Cart</a></li>
+                                    <li><a href="#checkout">Checkout</a></li>
+                                </ul>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#blog">Blog</a>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#contacts">Contacts</a>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#custom-order">Book Custom Card</a>
+                            </li>
+                            <li className="menu-item">
+                                <a href="#products" className="lte-btn w-full text-center">Shop Now</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            );
+        }
+
+        function Hero() {
+            useEffect(() => {
+                gsap.to('.animate-word', {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
+                gsap.to('.pricing-card', {
+                    opacity: 1,
+                    scale: 1,
+                    stagger: 0.2,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '#home',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.hero-content', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    ease: 'power3.out',
+                    delay: 0.2,
+                });
+                gsap.from('.btn-primary', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.8,
+                    ease: 'elastic.out(1, 0.5)',
+                    delay: 0.5,
+                    scrollTrigger: {
+                        trigger: '#home',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            const title = "The Purrfect Way to Express Your Baaa-st Wishes!".split(' ').map((word, index) => (
+                <span key={index} className="animate-word mx-1">{word}</span>
+            ));
+
+            return (
+                <section id="home" className="hero-bg min-h-screen flex items-center justify-center text-center pt-20">
+                    <div className="container mx-auto px-4 hero-content">
+                        <h2 className="text-5xl md:text-7xl font-bold text-gray-800 mb-6">{title}</h2>
+                        <p className="text-2xl text-gray-600 mb-8">
+                            <span className="highlight-text">Real cards</span> for <span className="highlight-text">real people</span> – birthdays, thank-yous, and special occasions!
+                        </p>
+                        <div className="mt-12">
+                            <h3 className="text-3xl font-bold text-gray-800 mb-6">Featured Collections</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                                <div className="pricing-card card-shadow text-gray-800">
+                                    <h4 className="text-xl font-bold">Baaa-rilliant Birthdays</h4>
+                                    <p>Woolly designs starting at $4.99</p>
+                                </div>
+                                <div className="pricing-card card-shadow text-gray-800">
+                                    <h4 className="text-xl font-bold">Thank Ewe Notes</h4>
+                                    <p>Heartfelt gratitude with a llama twist</p>
+                                </div>
+                                <div className="pricing-card card-shadow text-gray-800">
+                                    <h4 className="text-xl font-bold">Custom Llama Love</h4>
+                                    <p>Personalized cards for any occasion</p>
+                                </div>
+                            </div>
+                            <p className="text-lg text-gray-600 mt-6">
+                                <span className="highlight-text">Don’t let laundry llama drama get you!</span> Order 4 weeks in advance for custom cards.
+                            </p>
+                        </div>
+                        <a href="#products" className="btn-primary mt-8 inline-block">Shop Now!</a>
+                    </div>
+                </section>
+            );
+        }
+
+        function About() {
+            useEffect(() => {
+                gsap.from('.about-content', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#about',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <section id="about" className="py-16 section-bg text-gray-800">
+                    <div className="container mx-auto px-4 text-center about-content">
+                        <h2 className="text-4xl font-bold mb-8">About Thank Ewe Very Much</h2>
+                        <p className="text-lg text-gray-600 mb-6">
+                            At Thank Ewe Very Much, we believe in the power of <span className="highlight-text">real cards</span> to connect real people. Our woolly, llama-inspired designs bring fun and heart to every occasion – from birthdays to thank-yous and everything in between.
+                        </p>
+                        <p className="text-lg text-gray-600">
+                            <span className="highlight-text">Custom orders</span> are our specialty! Book 4 weeks in advance with a 25% deposit to create your purrfect card. #RealCardsRealPeople
+                        </p>
+                    </div>
+                </section>
+            );
+        }
+
+        function CardPopup({ card, onClose }) {
+            useEffect(() => {
+                gsap.from('.popup-content', {
+                    opacity: 0,
+                    scale: 0.7,
+                    duration: 0.5,
+                    ease: 'power3.out',
+                });
+            }, []);
+
+            if (!card) return null;
+
+            return (
+                <div className="popup-overlay active">
+                    <div className="popup-content card-shadow">
+                        <div className="popup-close" onClick={onClose}>×</div>
+                        <img src={card.image} alt={card.name} />
+                        <h3>{card.name}</h3>
+                        <p>{card.desc}</p>
+                        <p className="text-sm text-gray-600 mb-2">Type: {card.type}</p>
+                        <p className="lte-price">{card.price}</p>
+                        <p className="text-sm text-gray-600 mb-4">{card.message}</p>
+                        <p className="text-sm text-gray-600 mb-4">Custom orders require 25% deposit and 4 weeks lead time.</p>
+                        <a href="#cart" className="btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            );
+        }
+
+        function CustomOrderPopup({ onClose }) {
+            useEffect(() => {
+                gsap.from('.popup-content', {
+                    opacity: 0,
+                    scale: 0.7,
+                    duration: 0.5,
+                    ease: 'power3.out',
+                });
+            }, []);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                alert('Custom order submitted! We’ll contact you to confirm your 25% deposit.');
+                onClose();
+            };
+
+            return (
+                <div className="popup-overlay active">
+                    <div className="popup-content card-shadow">
+                        <div className="popup-close" onClick={onClose}>×</div>
+                        <h3 className="text-2xl font-bold mb-4">Book Your Custom Card</h3>
+                        <p className="text-gray-600 mb-4">Create a woolly masterpiece! Orders require a 25% deposit and 4 weeks lead time.</p>
+                        <div className="custom-form">
+                            <label htmlFor="name">Your Name</label>
+                            <input type="text" id="name" placeholder="Enter your name" required />
+                            <label htmlFor="email">Email Address</label>
+                            <input type="email" id="email" placeholder="Enter your email" required />
+                            <label htmlFor="card-type">Card Type</label>
+                            <select id="card-type" required>
+                                <option value="">Select card type</option>
+                                <option value="birthday">Birthday</option>
+                                <option value="thank-you">Thank You</option>
+                                <option value="special-occasion">Special Occasion</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <label htmlFor="message">Custom Message</label>
+                            <textarea id="message" rows="4" placeholder="Your custom message" required></textarea>
+                            <label htmlFor="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="1" placeholder="Enter quantity" required />
+                            <button onClick={handleSubmit} className="btn-primary mt-4">Submit Order</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Products() {
+            const [selectedCard, setSelectedCard] = useState(null);
+            const [showCustomOrder, setShowCustomOrder] = useState(false);
+
+            const products = [
+                {
+                    name: "Llama Birthday Bash",
+                    desc: "Colorful llama-themed birthday card.",
+                    type: "Birthday",
+                    icon: "🦙🎂",
+                    price: "$4.99",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Birthday+Bash",
+                    message: "Happy Baaa-thday! Celebrate with llama joy!"
+                },
+                {
+                    name: "Thank Ewe Note",
+                    desc: "Woolly gratitude with a playful twist.",
+                    type: "Thank You",
+                    icon: "🦙🙏",
+                    price: "$3.49",
+                    image: "https://via.placeholder.com/400x300?text=Thank+Ewe+Note",
+                    message: "Thank ewe for being so shear-iously amazing!"
+                },
+                {
+                    name: "Llama Anniversary",
+                    desc: "Romantic card with llama charm.",
+                    type: "Special Occasion",
+                    icon: "🦙❤️",
+                    price: "$5.99",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Anniversary",
+                    message: "To a love that’s llama-zing!"
+                },
+                {
+                    name: "Get Well Llama",
+                    desc: "Cheerful recovery card with llamas.",
+                    type: "Special Occasion",
+                    icon: "🦙🌸",
+                    price: "$3.99",
+                    image: "https://via.placeholder.com/400x300?text=Get+Well+Llama",
+                    message: "Wishing you a woolly quick recovery!"
+                },
+                {
+                    name: "Llama Congratulations",
+                    desc: "Celebrate with a festive llama card.",
+                    type: "Special Occasion",
+                    icon: "🦙🎉",
+                    price: "$4.49",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Congratulations",
+                    message: "You’re a llama-tastic achiever!"
+                },
+                {
+                    name: "Llama Sympathy",
+                    desc: "Thoughtful card with gentle llamas.",
+                    type: "Special Occasion",
+                    icon: "🦙🕊️",
+                    price: "$3.99",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Sympathy",
+                    message: "Sending woolly hugs during tough times."
+                },
+                {
+                    name: "Llama Holiday Cheer",
+                    desc: "Festive llama card for the holidays.",
+                    type: "Special Occasion",
+                    icon: "🦙🎄",
+                    price: "$4.29",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Holiday+Cheer",
+                    message: "Warmest woolly wishes for the holiday season!"
+                },
+                {
+                    name: "Baby Llama Bliss",
+                    desc: "Cute card for new parents.",
+                    type: "Special Occasion",
+                    icon: "🦙🍼",
+                    price: "$4.79",
+                    image: "https://via.placeholder.com/400x300?text=Baby+Llama+Bliss",
+                    message: "Welcome to your new little llama!"
+                },
+                {
+                    name: "Llama Wedding Wishes",
+                    desc: "Elegant card for the big day.",
+                    type: "Special Occasion",
+                    icon: "🦙💍",
+                    price: "$5.49",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Wedding+Wishes",
+                    message: "A llama-zing start to your forever!"
+                },
+                {
+                    name: "Llama Graduation",
+                    desc: "Celebrate academic success with llamas.",
+                    type: "Special Occasion",
+                    icon: "🦙🎓",
+                    price: "$4.69",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Graduation",
+                    message: "Congrats, you woolly brilliant graduate!"
+                },
+                {
+                    name: "Llama Friendship",
+                    desc: "Heartfelt card for your best pal.",
+                    type: "Special Occasion",
+                    icon: "🦙🤝",
+                    price: "$3.89",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Friendship",
+                    message: "To my shear-iously awesome friend!"
+                },
+                {
+                    name: "Llama New Home",
+                    desc: "Welcome to your new space with llamas.",
+                    type: "Special Occasion",
+                    icon: "🦙🏡",
+                    price: "$4.39",
+                    image: "https://via.placeholder.com/400x300?text=Llama+New+Home",
+                    message: "Congrats on your woolly new home!"
+                },
+                {
+                    name: "Llama Birthday Fiesta",
+                    desc: "Vibrant llama party card for birthdays.",
+                    type: "Birthday",
+                    icon: "🦙🎈",
+                    price: "$4.89",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Birthday+Fiesta",
+                    message: "Let’s have a llama-tastic birthday bash!"
+                },
+                {
+                    name: "Thank Ewe Kindness",
+                    desc: "Gratitude card with a soft llama touch.",
+                    type: "Thank You",
+                    icon: "🦙🌟",
+                    price: "$3.59",
+                    image: "https://via.placeholder.com/400x300?text=Thank+Ewe+Kindness",
+                    message: "Your kindness is shear perfection!"
+                },
+                {
+                    name: "Llama Retirement",
+                    desc: "Celebrate retirement with a woolly twist.",
+                    type: "Special Occasion",
+                    icon: "🦙🌴",
+                    price: "$4.99",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Retirement",
+                    message: "Enjoy your woolly relaxing retirement!"
+                },
+                {
+                    name: "Llama Baby Shower",
+                    desc: "Sweet card for expecting parents.",
+                    type: "Special Occasion",
+                    icon: "🦙🎁",
+                    price: "$4.59",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Baby+Shower",
+                    message: "A little llama is on the way!"
+                },
+                {
+                    name: "Llama Encouragement",
+                    desc: "Uplifting card with llama cheer.",
+                    type: "Special Occasion",
+                    icon: "🦙🌈",
+                    price: "$3.79",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Encouragement",
+                    message: "Keep shining, you woolly star!"
+                },
+                {
+                    name: "Llama Thank You Party",
+                    desc: "Festive thank you card with llamas.",
+                    type: "Thank You",
+                    icon: "🦙🎊",
+                    price: "$3.99",
+                    image: "https://via.placeholder.com/400x300?text=Llama+Thank+You+Party",
+                    message: "Ewe made the party un-baaa-lievable!"
+                }
+            ];
+
+            const handleCardClick = (card) => {
+                setSelectedCard(card);
+            };
+
+            const handleClosePopup = () => {
+                setSelectedCard(null);
+            };
+
+            const handleCustomOrderClick = () => {
+                setShowCustomOrder(true);
+            };
+
+            const handleCloseCustomOrder = () => {
+                setShowCustomOrder(false);
+            };
+
+            useEffect(() => {
+                gsap.from('.product-card', {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.9,
+                    stagger: 0.2,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#products',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.lte-tariff-item h5', {
+                    opacity: 0,
+                    x: -20,
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '#products',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.lte-tariff-item h6', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.8,
+                    ease: 'elastic.out(1, 0.5)',
+                    stagger: 0.2,
+                    scrollTrigger: {
+                        trigger: '#products',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.lte-tariff-list li', {
+                    opacity: 0,
+                    x: 20,
+                    duration: 0.6,
+                    stagger: 0.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '#products',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <section id="products" className="py-16 section-bg">
+                    <div className="container mx-auto px-4">
+                        <div className="lte-heading text-center">
+                            <h2 className="lte-header text-4xl font-bold mb-12">Our Woolly Cards</h2>
+                        </div>
+                        <div className="text-center mb-8">
+                            <button onClick={handleCustomOrderClick} className="btn-primary">Book Custom Card</button>
+                        </div>
+                        <div className="services-grid">
+                            {products.map((product, index) => (
+                                <div key={index} className="lte-tariff-item product-card" onClick={() => handleCardClick(product)}>
+                                    <h5>{product.name}</h5>
+                                    <h6>{product.icon}</h6>
+                                    <ul className="lte-tariff-list">
+                                        <li><span className="ul-yes"></span>{product.desc}</li>
+                                        <li><span className="ul-yes"></span>Type: {product.type}</li>
+                                        <li><span className="ul-yes"></span><span className="lte-price">{product.price}</span></li>
+                                    </ul>
+                                    <a href="#cart" className="btn-primary">Add to Cart</a>
+                                </div>
+                            ))}
+                        </div>
+                        {selectedCard && <CardPopup card={selectedCard} onClose={handleClosePopup} />}
+                        {showCustomOrder && <CustomOrderPopup onClose={handleCloseCustomOrder} />}
+                    </div>
+                </section>
+            );
+        }
+
+        function Cart() {
+            useEffect(() => {
+                gsap.from('.cart-content', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#cart',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <section id="cart" className="py-16 section-bg text-gray-800">
+                    <div className="container mx-auto px-4 text-center cart-content">
+                        <h2 className="text-4xl font-bold mb-8">Your Cart</h2>
+                        <p className="text-lg text-gray-600 mb-6">
+                            Review your woolly selections and proceed to checkout.
+                        </p>
+                        <a href="#checkout" className="btn-primary">Go to Checkout</a>
+                    </div>
+                </section>
+            );
+        }
+
+        function Checkout() {
+            useEffect(() => {
+                gsap.from('.checkout-button', {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#checkout',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.lte-heading h2', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#checkout',
+                        start: 'top 80%',
+                    },
+                });
+                gsap.from('.payment-option', {
+                    opacity: 0,
+                    y: 20,
+                    stagger: 0.2,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#checkout',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <section id="checkout" className="py-20 section-bg text-gray-800">
+                    <div className="container mx-auto px-4 text-center">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-12">Ready to Send Your Baaa-st Wishes?</h2>
+                        <p className="text-lg text-gray-600 mb-8">
+                            Complete your order securely. Custom orders require a 25% deposit and 4 weeks lead time.
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
+                            <div className="payment-option card-shadow p-4">
+                                <h4 className="text-xl font-bold">Credit/Debit Card</h4>
+                                <p>Visa, MasterCard, Amex</p>
+                            </div>
+                            <div className="payment-option card-shadow p-4">
+                                <h4 className="text-xl font-bold">PayPal</h4>
+                                <p>Secure payments via PayPal</p>
+                            </div>
+                            <div className="payment-option card-shadow p-4">
+                                <h4 className="text-xl font-bold">Bank Transfer</h4>
+                                <p>Contact us for details</p>
+                            </div>
+                        </div>
+                        <a href="#checkout" className="checkout-button">Complete Purchase</a>
+                        <p className="text-lg text-gray-600 mt-6">
+                            <a href="#custom-order" className="highlight-text">Book a custom card</a> for a unique touch!
+                        </p>
+                    </div>
+                </section>
+            );
+        }
+
+        function Blog() {
+            useEffect(() => {
+                gsap.from('.blog-content', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#blog',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <section id="blog" className="py-16 section-bg text-gray-800">
+                    <div className="container mx-auto px-4 text-center blog-content">
+                        <h2 className="text-4xl font-bold mb-8">Our Blog</h2>
+                        <p className="text-lg text-gray-600 mb-6">
+                            Stay tuned for woolly inspiration, card ideas, and more! #ThankEweVeryMuch
+                        </p>
+                    </div>
+                </section>
+            );
+        }
+
+        function Footer() {
+            useEffect(() => {
+                gsap.from('footer p', {
+                    opacity: 0,
+                    y: 20,
+                    stagger: 0.2,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: 'footer',
+                        start: 'top 80%',
+                    },
+                });
+            }, []);
+
+            return (
+                <footer id="contacts" className="bg-gray-900 text-white py-8 text-center">
+                    <p className="text-lg">&copy; 2025 Thank Ewe Very Much. All rights reserved.</p>
+                    <p className="text-lg mt-2">Real Cards for Real People! #ThankEweVeryMuch #SnailMail</p>
+                    <p className="text-lg mt-2">Follow us on <a href="https://x.com" className="highlight-text">#RealCardsRealPeople</a></p>
+                    <p className="text-lg mt-2">Contact us: <a href="mailto:info@thankeweverymuch.com" className="highlight-text">info@thankeweverymuch.com</a></p>
+                    <p className="text-lg mt-2">Phone: (123) 456-7890 | Address: 123 Llama Lane, Woolville, USA</p>
+                </footer>
+            );
+        }
+
+        function App() {
+            return (
+                <div>
+                    <Navbar />
+                    <Hero />
+                    <About />
+                    <Products />
+                    <Cart />
+                    <Checkout />
+                    <Blog />
+                    <Footer />
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
